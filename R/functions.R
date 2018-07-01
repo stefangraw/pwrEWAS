@@ -138,21 +138,19 @@ getTau = function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGonA
 
 #' @export
 loadDataset = function(tissueType){
-  if(tissueType == "Saliva") load("dataSets/GSE92767.Rdata") else 
-  if(tissueType == "Lymphoma") load("dataSets/GSE42372.Rdata") else 
-  if(tissueType == "Placenta") load("dataSets/GSE62733.Rdata") else 
-  if(tissueType == "Liver") load("dataSets/GSE61258.Rdata") else 
-  if(tissueType == "Colon") load("dataSets/GSE77718.Rdata") else 
-  if(tissueType == "Peripheral Leukocytes") load("dataSets/GSE42861.Rdata") else
-  if(tissueType == "Blood 5 year olds") load("dataSets/GSE83334.Rdata") else 
-  if(tissueType == "Blood newborns") load("dataSets/GSE82273.Rdata") else
-  if(tissueType == "Cord-blood (whole blood)") load("dataSets/GSE69176.Rdata") else
-  if(tissueType == "Cord-blood (PBMC)") load("dataSets/GSE110128.Rdata") else
-  if(tissueType == "Adult (PBMC)") load("dataSets/GSE67170.Rdata") else
+  methPara = NULL
+  if(tissueType == "Saliva") methPara = Saliva else 
+  if(tissueType == "Lymphoma") methPara = Lymphoma else 
+  if(tissueType == "Placenta") methPara = Placenta else 
+  if(tissueType == "Liver") methPara = Liver else 
+  if(tissueType == "Colon") methPara = Colon else 
+  if(tissueType == "Peripheral Leukocytes") methPara = PeripheralLeukocytes else
+  if(tissueType == "Blood 5 year olds") methPara = Blood_5yrOlds else 
+  if(tissueType == "Blood newborns") methPara = BloodNewborns else
+  if(tissueType == "Cord-blood (whole blood)") methPara = CordBlood_wholeBlood else
+  if(tissueType == "Cord-blood (PBMC)") methPara = CordBlood_PBMC else
+  if(tissueType == "Adult (PBMC)") methPara = Adult_PBMC else
   stop("Tissue type not found")
-
   return(methPara)
 }
-
-
 

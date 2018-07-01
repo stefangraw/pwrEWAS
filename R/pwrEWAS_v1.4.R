@@ -66,7 +66,7 @@ pwrEWAS = function(minTotSampleSize = 10, # min total sample size
   library(doParallel)
   library(abind)
   library(foreach)
-  source(file = "functions.R")  # multi core
+  # source(file = "functions.R")  # multi core
   tissueType = match.arg(tissueType)
   DMmethod = match.arg(DMmethod)
   
@@ -118,7 +118,7 @@ pwrEWAS = function(minTotSampleSize = 10, # min total sample size
                            .packages=c("truncnorm", "limma", "CpGassoc", "genefilter")) %:%
     foreach(Ntot = totSampleSizes, .combine = combine_totSampleSizes) %dopar% { 
       
-      source(file = "functions.R")  # multi core
+      # source(file = "functions.R")  # multi core
       Ncnt = round(Ntot * NcntPer)
       Ntx = Ntot - Ncnt
       powerSim = NULL
