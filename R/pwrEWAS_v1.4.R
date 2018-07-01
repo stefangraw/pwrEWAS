@@ -36,7 +36,6 @@
 #'                    FDRcritVal = 0.05,
 #'                    core = 4,
 #'                    sims = 50)
-#' @import doParallel abind foreach truncnorm limma CpGassoc genefilter 
 
 pwrEWAS = function(minTotSampleSize = 10, # min total sample size
                    maxTotSampleSize = 50, # max total sample size
