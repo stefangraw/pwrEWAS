@@ -136,6 +136,23 @@ getTau = function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGonA
   return(out)
 }
 
+#' #' @export
+#' loadDataset = function(tissueType){
+#'   if(tissueType == "Saliva") load("data/GSE92767.Rdata") else 
+#'   if(tissueType == "Lymphoma") load("data/GSE42372.Rdata") else 
+#'   if(tissueType == "Placenta") load("data/GSE62733.Rdata") else 
+#'   if(tissueType == "Liver") load("data/GSE61258.Rdata") else 
+#'   if(tissueType == "Colon") load("data/GSE77718.Rdata") else 
+#'   if(tissueType == "Peripheral Leukocytes") load("data/GSE42861.Rdata") else
+#'   if(tissueType == "Blood 5 year olds") load("data/GSE83334.Rdata") else 
+#'   if(tissueType == "Blood newborns") load("data/GSE82273.Rdata") else
+#'   if(tissueType == "Cord-blood (whole blood)") load("data/GSE69176.Rdata") else
+#'   if(tissueType == "Cord-blood (PBMC)") load("data/GSE110128.Rdata") else
+#'   if(tissueType == "Adult (PBMC)") load("data/GSE67170.Rdata") else
+#'   stop("Tissue type not found")
+#'   return(methPara)
+#' }
+
 #' @export
 loadDataset = function(tissueType){
   methPara = NULL

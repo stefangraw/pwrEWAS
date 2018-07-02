@@ -16,7 +16,7 @@
 #' @param core Number of threads for multi-threading (default: 1).
 #' @param sim Number of simulated data sets (default: 50).
 #'
-#' @return pwrEWAS will return an object with the following three attributes: meanPower, powerArray, deltaArray
+#' @return pwrEWAS will return an object with the following three attributes: meanPower, powerArray, and deltaArray
 #'
 #' @keywords DNAm microarray power
 #' 
