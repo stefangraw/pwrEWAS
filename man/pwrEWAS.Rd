@@ -41,7 +41,7 @@ pwrEWAS(minTotSampleSize = 10, maxTotSampleSize = 50,
 \item{sim}{Number of simulated data sets (default: 50).}
 }
 \value{
-pwrEWAS will return an object with the following three attributes: meanPower, powerArray, and deltaArray
+pwrEWAS will return an object with the following four attributes: meanPower, powerArray, deltaArray, and metric, where metric contains marTypeI, classicalPower, FDR, and FDC
 }
 \description{
 pwrEWAS is a computationally efficient tool to estimate power in EWAS as a function of sample and effect size for two-group comparisons of DNAm (e.g., case vs control, exposed vs non-exposed, etc.). Detailed description of in-/outputs, instructions and an example, as well as interpretations of the example results are provided in the following vignette:
