@@ -43,7 +43,7 @@ pwrEWAS.shiny = function(){
       # eventReactive(input$goButton, {
       
       ### here goes all my code
-      # source(file = "pwrEWAS_v1.4.R")
+      # source(file = "pwrEWAS_v1.5.R")
       withProgress(message = 'Program running.', detail = "Please wait!", value = NULL, {
         out = pwrEWAS(minTotSampleSize = input$Nmin,
                       maxTotSampleSize = input$Nmax,
