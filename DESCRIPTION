@@ -1,6 +1,6 @@
 Package: pwrEWAS
 Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
+Version: 1.0
 Authors@R: person("Stefan", "Graw", email = "srgaw@kumc.edu", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 Depends: R (>= 3.4.0)
