@@ -2,8 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{loadDataset}
 \alias{loadDataset}
-\title{#' @export
-loadDataset = function(tissueType){
+\title{loadDataset = function(tissueType){
   if(tissueType == "Saliva") load("data/GSE92767.Rdata") else 
   if(tissueType == "Lymphoma") load("data/GSE42372.Rdata") else 
   if(tissueType == "Placenta") load("data/GSE62733.Rdata") else 
@@ -22,7 +21,6 @@ loadDataset = function(tissueType){
 loadDataset(tissueType)
 }
 \description{
-#' @export
 loadDataset = function(tissueType){
   if(tissueType == "Saliva") load("data/GSE92767.Rdata") else 
   if(tissueType == "Lymphoma") load("data/GSE42372.Rdata") else 

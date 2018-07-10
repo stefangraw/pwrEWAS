@@ -3,7 +3,9 @@ Title: What the Package Does (one line, title case)
 Version: 1.0
 Authors@R: person("Stefan", "Graw", email = "srgaw@kumc.edu", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
-Depends: R (>= 3.4.0)
+Depends: 
+	R (>= 3.4.0),
+	foreach
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
@@ -11,7 +13,9 @@ RoxygenNote: 6.0.1.9000
 Imports:
     doParallel,
     abind,
-	foreach,
 	truncnorm,
 	limma,
-	CpGassoc
+	CpGassoc,
+	shiny,
+	ggplot2,
+	parallel

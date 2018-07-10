@@ -1,4 +1,3 @@
-#' @export
 myPlotCI3D = function(data#, Nmin, Nmax, Nsteps, deltaSigma
 ){
   # sampleSizes = seq(Nmin, Nmax, Nsteps)
@@ -7,11 +6,11 @@ myPlotCI3D = function(data#, Nmin, Nmax, Nsteps, deltaSigma
   
   # df <- data.frame(x = sampleSizes, y = colMeans(data[,,1]))
   df <- data.frame(x = sampleSizes, y = colMeans(matrix(data[,,1])))
-  p = ggplot(df, aes(x = x, y = y)) + 
-    ggtitle("Mean power curve with 95-percentile interval (2.5% & 97.5%)") + 
-    labs(x = "Sample size") + 
-    labs(y = "Power") +
-    geom_hline(yintercept = 0.8, linetype = 3, size = 1.5)
+  p = ggplot2::ggplot(df, ggplot2::aes(x = x, y = y)) + 
+    ggplot2::ggtitle("Mean power curve with 95-percentile interval (2.5% & 97.5%)") + 
+    ggplot2::labs(x = "Sample size") + 
+    ggplot2::labs(y = "Power") +
+    ggplot2::geom_hline(yintercept = 0.8, linetype = 3, size = 1.5)
   dftemp = NULL
   # cols = rainbow(dim(data)[3])
   
@@ -44,32 +43,30 @@ myPlotCI3D = function(data#, Nmin, Nmax, Nsteps, deltaSigma
                               L = L, U = U, deltas = rep(as.character(deltas[j]), length(sampleSizes)))
     
     p = p +
-      geom_errorbar(data = dftemp[[j]], aes(x = scatter, ymax = U, ymin = L, colour=deltas),
+      ggplot2::geom_errorbar(data = dftemp[[j]], ggplot2::aes(x = scatter, ymax = U, ymin = L, colour=deltas),
                     width=ifelse(length(sampleSizes)>1,diff(range(sampleSizes))/(length(sampleSizes)*4),0.9), linetype=1, size=1) +
-      geom_line(data = dftemp[[j]], aes(x = x, y = y, colour=deltas), size=1.2) +
-      geom_point(data = dftemp[[j]], aes(x = x, y = y), size = 1) +
-      scale_x_continuous(breaks = sampleSizes) +
-      scale_y_continuous(minor_breaks = seq(0 , 1, 0.1), breaks = seq(0, 1, 0.2), limits = c(0,1)) +
-      theme(axis.text=element_text(size=18),
-            axis.title=element_text(size=22)) +
-      theme(axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)))+ 
-      theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))+ 
-      theme(legend.text=element_text(size=17),
-            legend.title=element_text(size=20)) + 
-      scale_colour_discrete(name  = expression(Delta))
+      ggplot2::geom_line(data = dftemp[[j]], ggplot2::aes(x = x, y = y, colour=deltas), size=1.2) +
+      ggplot2::geom_point(data = dftemp[[j]], ggplot2::aes(x = x, y = y), size = 1) +
+      ggplot2::scale_x_continuous(breaks = sampleSizes) +
+      ggplot2::scale_y_continuous(minor_breaks = seq(0 , 1, 0.1), breaks = seq(0, 1, 0.2), limits = c(0,1)) +
+      ggplot2::theme(axis.text=ggplot2::element_text(size=18),
+            axis.title=ggplot2::element_text(size=22)) +
+      ggplot2::theme(axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = 20, r = 0, b = 0, l = 0)))+ 
+      ggplot2::theme(axis.title.y = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 20, b = 0, l = 0)))+ 
+      ggplot2::theme(legend.text=ggplot2::element_text(size=17),
+            legend.title=ggplot2::element_text(size=20)) + 
+      ggplot2::scale_colour_discrete(name  = expression(Delta))
     
   }
   print(p)
 }
 # myPlotCI3D(out$powerArray)
 
-#' @export
 gg_color_hue <- function(n) {
   hues = seq(15, 375, length = n + 1)
   hcl(h = hues, l = 65, c = 100)[1:n]
 }
 
-#' @export
 myDensityPlots = function(data, detectionLimit){
   maxDensY = 0
   maxDensX = 0

@@ -63,9 +63,9 @@ pwrEWAS = function(minTotSampleSize = 10, # min total sample size
                    core = 1, # number of cores to multi thread
                    sims = 50
 ){
-  library(doParallel)
-  library(abind)
-  library(foreach)
+  # library(doParallel)
+  # library(abind)
+  # library(foreach)
   # source(file = "functions.R")  # multi core
   tissueType = match.arg(tissueType)
   DMmethod = match.arg(DMmethod)
@@ -78,8 +78,8 @@ pwrEWAS = function(minTotSampleSize = 10, # min total sample size
   totSampleSizes = seq(minTotSampleSize, maxTotSampleSize, SampleSizeSteps)
   
   # initalize multi thread clusters
-  cl <- makeCluster(core) # multi core
-  registerDoParallel(cl) # multi core
+  cl <- parallel::makeCluster(core) # multi core
+  doParallel::registerDoParallel(cl) # multi core
   
   
   # combining function for foreach loops
@@ -96,13 +96,13 @@ pwrEWAS = function(minTotSampleSize = 10, # min total sample size
     if(class(listB[["metric"]]$FDC) !="array" & class(listB[["metric"]]$FDC) !="matrix") listB[["metric"]]$FDC = matrix(listB[["metric"]]$FDC)
     if(class(listA[["delta"]]) !="list") listA[["delta"]] = list(listA[["delta"]])
     returnList = list()
-    returnList[["power"]] = abind(listA[["power"]], listB[["power"]], along = 3)
+    returnList[["power"]] = abind::abind(listA[["power"]], listB[["power"]], along = 3)
     returnList[["delta"]] = listA[["delta"]]
     returnList[["delta"]][[length(listA[["delta"]])+1]] = listB[["delta"]]
-    returnList[["metric"]]$marTypeI = abind(listA[["metric"]]$marTypeI, listB[["metric"]]$marTypeI, along = 3)
-    returnList[["metric"]]$classicalPower = abind(listA[["metric"]]$classicalPower, listB[["metric"]]$classicalPower, along = 3)
-    returnList[["metric"]]$FDR = abind(listA[["metric"]]$FDR, listB[["metric"]]$FDR, along = 3)
-    returnList[["metric"]]$FDC = abind(listA[["metric"]]$FDC, listB[["metric"]]$FDC, along = 3)
+    returnList[["metric"]]$marTypeI = abind::abind(listA[["metric"]]$marTypeI, listB[["metric"]]$marTypeI, along = 3)
+    returnList[["metric"]]$classicalPower = abind::abind(listA[["metric"]]$classicalPower, listB[["metric"]]$classicalPower, along = 3)
+    returnList[["metric"]]$FDR = abind::abind(listA[["metric"]]$FDR, listB[["metric"]]$FDR, along = 3)
+    returnList[["metric"]]$FDC = abind::abind(listA[["metric"]]$FDC, listB[["metric"]]$FDC, along = 3)
     return(returnList)
   }
   
@@ -157,9 +157,9 @@ pwrEWAS = function(minTotSampleSize = 10, # min total sample size
         
         ## Change Mu for "changedCpgsIdx"'s CpG's
         # drawing delta from truncated normal
-        delta = rtruncnorm(1, mean = 0, sd = as.numeric(tau[d]), 
-                           a=0.5 - methPara$mu[changedCpgsIdx] - sqrt(0.25-methPara$var[changedCpgsIdx]), 
-                           b=0.5 - methPara$mu[changedCpgsIdx] + sqrt(0.25-methPara$var[changedCpgsIdx]))
+        delta = truncnorm::rtruncnorm(1, mean = 0, sd = as.numeric(tau[d]), 
+                                      a=0.5 - methPara$mu[changedCpgsIdx] - sqrt(0.25-methPara$var[changedCpgsIdx]), 
+                                      b=0.5 - methPara$mu[changedCpgsIdx] + sqrt(0.25-methPara$var[changedCpgsIdx]))
         deltaSim = c(deltaSim, delta)  # multi core
         meaningfulDM = (abs(delta) >= detectionLimit)
         meaningfulDMName = changedCpgsIdxName[meaningfulDM]
@@ -247,7 +247,7 @@ pwrEWAS = function(minTotSampleSize = 10, # min total sample size
       outSim[["metric"]]$FDC = FDC
       outSim
     } # end tau and totSampleSizes
-  stopCluster(cl) 
+  parallel::stopCluster(cl) 
   cat(paste("done", " [",Sys.time(),"]\n", sep = ""))
   
   # calculate mean marginal power and adding names 
@@ -273,7 +273,7 @@ pwrEWAS = function(minTotSampleSize = 10, # min total sample size
     colnames(output$deltaArray[[d]]) = totSampleSizes
   }
   
-
+  
   # calculate mean marTypeI and adding names 
   if(length(targetDelta) == 1 & length(totSampleSizes) == 1)  output$metric$marTypeI = matrix(mean(multiThreadOut[["metric"]]$marTypeI, na.rm=TRUE))
   if(length(targetDelta) == 1 & length(totSampleSizes) > 1)   output$metric$marTypeI = matrix(apply(multiThreadOut[["metric"]]$marTypeI, 2, mean, na.rm=TRUE), ncol = 1)
@@ -301,6 +301,6 @@ pwrEWAS = function(minTotSampleSize = 10, # min total sample size
   if(length(targetDelta) > 1)                                 output$metric$FDC = apply(multiThreadOut[["metric"]]$FDC, c(2,3), mean, na.rm=TRUE)
   rownames(output$metric$FDC) = totSampleSizes
   colnames(output$metric$FDC) = targetDelta
-
+  
   return(output)
 }

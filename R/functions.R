@@ -1,12 +1,12 @@
 
-#' @export
+#
 getAlphBet = function(myMean, myVar){
   alpha = myMean^2 * ((1-myMean)/myVar - 1/myMean) 
   beta = alpha * (1/myMean - 1)
   return( list(alpha = alpha, beta = beta) )
 }
 
-#' @export
+#
 getMeanVar = function(myAlpha, myBeta){
   mean = myAlpha / (myAlpha + myBeta)
   var = myAlpha * myBeta / ((myAlpha + myBeta)^2 * (myAlpha + myBeta + 1))
@@ -14,7 +14,6 @@ getMeanVar = function(myAlpha, myBeta){
 }
 
 # beta-value to m-value
-#' @export
 beta2Mvalue = function(beta){ # beta to m-value
   # # g1Mval = log2(g1Beta/(1-g1Beta))
   # # g2Mval = log2(g2Beta/(1-g2Beta))
@@ -29,7 +28,6 @@ beta2Mvalue = function(beta){ # beta to m-value
 }
 
 # t-test uses UNequal variance
-#' @export
 ttestSlow = function(g1Beta,g2Beta,rCnt,rTx,paired){
   mvals = cbind(beta2Mvalue(g1Beta), beta2Mvalue(g2Beta))
   ttest = apply(mvals,1,  function (x) t.test(x[1:rCnt], x[(rCnt+1):(rCnt+rTx)], paired = pairedSamples, var.equal = T))
@@ -42,10 +40,9 @@ ttestSlow = function(g1Beta,g2Beta,rCnt,rTx,paired){
 
 
 # t-test uses equal variance
-#' @export
 ttestFast = function(g1Beta,g2Beta,rCnt,rTx){
   mvals = cbind(beta2Mvalue(g1Beta), beta2Mvalue(g2Beta))
-  ttest = rowttests(mvals, fac = factor(c(rep("g1",rCnt),rep("g2",rTx))), tstatOnly = F)  # faster: tstatOnly = T
+  ttest = genefilter::rowttests(mvals, fac = factor(c(rep("g1",rCnt),rep("g2",rTx))), tstatOnly = F)  # faster: tstatOnly = T
   temp = NULL
   temp$pval = ttest$p.value
   temp$fdr = p.adjust(temp$pval, method = "fdr")
@@ -55,7 +52,6 @@ ttestFast = function(g1Beta,g2Beta,rCnt,rTx){
 
 
 # Wilcox rank sum test
-#' @export
 Wilcox = function(g1Beta, g2Beta, rCnt,rTx){
   mvals = cbind(beta2Mvalue(g1Beta), beta2Mvalue(g2Beta))
   WRS = apply(mvals,1,  function (x) wilcox.test(x[1:rCnt] - x[(rCnt+1):(rCnt+rTx)], correct=T))
@@ -67,11 +63,10 @@ Wilcox = function(g1Beta, g2Beta, rCnt,rTx){
 }
 
 # limma
-#' @export
 limma = function(g1Beta, g2Beta, rCnt,rTx){
   mvals = cbind(beta2Mvalue(g1Beta), beta2Mvalue(g2Beta))
   design <- model.matrix(~ c(rep("g1",rCnt),rep("g2",rTx)))
-  limmaFit <- lmFit(mvals, design)
+  limmaFit <- limma::lmFit(mvals, design)
   temp = NULL
   temp$pval <- eBayes(limmaFit)$p.value[,2]
   # limmaFit_alpha <- sum(limmaFit_pval<0.05)/J
@@ -80,9 +75,8 @@ limma = function(g1Beta, g2Beta, rCnt,rTx){
 }
 
 # CPGassoc
-#' @export
 CPGassoc = function(g1Beta, g2Beta, rCnt,rTx){
-  assoc = cpg.assoc(cbind(g1Beta, g2Beta), c(rep("g1",rCnt),rep("g2",rTx)))
+  assoc = CpGassoc::cpg.assoc(cbind(g1Beta, g2Beta), c(rep("g1",rCnt),rep("g2",rTx)))
   temp = NULL
   temp$pval = assoc$results$P.value
   # temp$alpha = sum(assoc_pval<0.05)/J
@@ -91,9 +85,8 @@ CPGassoc = function(g1Beta, g2Beta, rCnt,rTx){
 }
 
 
-#' @export
 getTau = function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGonArray){
-  library("truncnorm")
+  #library("truncnorm")
   out = NULL
   tau = 1
   tauSteps = 1
@@ -107,7 +100,7 @@ getTau = function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGonA
     for(i in 1:100){
       # simulate deltas for J CpG's (number of simulated CpG's later)
       cpgIdx4Tau = sample(x = 1:CpGonArray, size = J, replace = T) # pick K random CpG's to be changed in mean meth
-      delta = rtruncnorm(1, mean = 0, sd = tau, 
+      delta = truncnorm::rtruncnorm(1, mean = 0, sd = tau, 
                          a=0.5 - methPara$mu[cpgIdx4Tau] - sqrt(0.25-methPara$var[cpgIdx4Tau]), 
                          b=0.5 - methPara$mu[cpgIdx4Tau] + sqrt(0.25-methPara$var[cpgIdx4Tau]))
       # 99% percentile 
@@ -136,7 +129,6 @@ getTau = function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGonA
   return(out)
 }
 
-#' #' @export
 #' loadDataset = function(tissueType){
 #'   if(tissueType == "Saliva") load("data/GSE92767.Rdata") else 
 #'   if(tissueType == "Lymphoma") load("data/GSE42372.Rdata") else 
@@ -153,7 +145,6 @@ getTau = function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGonA
 #'   return(methPara)
 #' }
 
-#' @export
 loadDataset = function(tissueType){
   methPara = NULL
   if(tissueType == "Saliva") methPara = Saliva else 
