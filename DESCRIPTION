@@ -17,5 +17,6 @@ Imports:
 	limma,
 	CpGassoc,
 	shiny,
+	shinyBS,
 	ggplot2,
 	parallel
