@@ -4,31 +4,30 @@
 \alias{pwrEWAS}
 \title{pwrEWAS - A computationally efficient tool for compre-hensive power estimation in EWAS}
 \usage{
-pwrEWAS(minTotSampleSize = 10, maxTotSampleSize = 50,
-  SampleSizeSteps = 10, NcntPer = 0.5, targetDelta = c(0.2, 0.5),
-  J = 10000, targetDmCpGs = 100, tissueType = c("Adult (PBMC)", "Saliva",
-  "Lymphoma", "Placenta", "Liver", "Colon", "Peripheral Leukocytes",
+pwrEWAS(minTotSampleSize, maxTotSampleSize, SampleSizeSteps, NcntPer,
+  targetDelta, J = 1e+05, targetDmCpGs, tissueType = c("Adult (PBMC)",
+  "Saliva", "Lymphoma", "Placenta", "Liver", "Colon", "Blood adult",
   "Blood 5 year olds", "Blood newborns", "Cord-blood (whole blood)",
   "Cord-blood (PBMC)"), detectionLimit = 0.01, DMmethod = c("limma",
   "t-test (unequal var)", "t-test (equal var)", "Wilcox rank sum", "CPGassoc"),
   FDRcritVal = 0.05, core = 1, sims = 50)
 }
 \arguments{
-\item{minTotSampleSize}{Minimum total sample size (default: 10).}
+\item{minTotSampleSize}{Minimum total sample size.}
 
-\item{maxTotSampleSize}{Maximum total sample size (default: 50).}
+\item{maxTotSampleSize}{Maximum total sample size.}
 
-\item{SampleSizeSteps}{Sample size increments (default: 10).}
+\item{SampleSizeSteps}{Sample size increments.}
 
-\item{NcntPer}{Percentage sample group 1 (control group) (default: 0.5).}
+\item{NcntPer}{Percentage sample group 1 (control group) (NcntPer = 0.5 indicates a balanced design).}
 
-\item{targetDelta}{Target maximum difference in mean DNAm (default: c(0.2, 0.5).}
+\item{targetDelta}{Target maximum difference in mean DNAm.}
 
-\item{J}{Number of CpGs tested/simulated (default: 10000).}
+\item{J}{Number of CpGs tested/simulated (default: 100000).}
 
-\item{targetDmCpGs}{Target number of DM CpGs (default: 100).}
+\item{targetDmCpGs}{Target number of DM CpGs.}
 
-\item{tissueType}{Select a tissue type from the list of most commonly used tissue types: "Adult (PBMC)" (default), "Saliva", "Lymphoma", "Placenta", "Liver", "Colon", "Peripheral Leukocytes", "Blood 5 year olds", "Blood newborns", "Cord-blood (whole blood)" or "Cord-blood (PBMC)".}
+\item{tissueType}{Select a tissue type from the list of most commonly used tissue types: "Adult (PBMC)" (default), "Saliva", "Lymphoma", "Placenta", "Liver", "Colon", "Blood adult", "Blood 5 year olds", "Blood newborns", "Cord-blood (whole blood)" or "Cord-blood (PBMC)".}
 
 \item{detectionLimit}{Smallest detectable difference in DNAm (default: 0.01).}
 
@@ -52,7 +51,7 @@ pwrEWAS(minTotSampleSize = 10,
                    SampleSizeSteps = 10,
                    NcntPer = 10,
                    targetDelta = c(0.2, 0.5),
-                   J = 10000,
+                   J = 100000,
                    targetDmCpGs = 100,
                    tissueType = "Adult (PBMC)",
                    detectionLimit = 0.01,

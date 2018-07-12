@@ -21,14 +21,14 @@ pwrEWAS.shiny = function(){
   input2$Nmax = 50
   input2$NCntPer = 0.5
   input2$Nsteps = 10
-  input2$J = 10000 # simulated CPGs
-  input2$targetDmCpGs = 10
+  input2$J = 100000 # simulated CPGs
+  input2$targetDmCpGs = 100
   input2$targetDeltaString = "0.2, 0.5"
   input2$targetDelta = as.numeric(unlist(strsplit(input2$targetDeltaString,",")))
   input2$method = "limma"
   input2$detectionLimit = 0.01
   input2$FDRcritVal = 0.05
-  input2$cores = parallel::detectCores(all.tests = FALSE, logical = TRUE)-1
+  input2$cores = round(parallel::detectCores(all.tests = FALSE, logical = TRUE)/2)
   input2$sim = 50
   input2$tissueType = "Saliva"
   # input = input2
@@ -101,7 +101,7 @@ pwrEWAS.shiny = function(){
                                                                                "Placenta",
                                                                                "Liver",
                                                                                "Colon",
-                                                                               "Peripheral Leukocytes",
+                                                                               "Blood adult",
                                                                                "Blood 5 year olds",
                                                                                "Blood newborns",
                                                                                "Cord-blood (whole blood)",

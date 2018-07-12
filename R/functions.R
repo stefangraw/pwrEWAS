@@ -135,7 +135,7 @@ getTau = function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGonA
 #'   if(tissueType == "Placenta") load("data/GSE62733.Rdata") else 
 #'   if(tissueType == "Liver") load("data/GSE61258.Rdata") else 
 #'   if(tissueType == "Colon") load("data/GSE77718.Rdata") else 
-#'   if(tissueType == "Peripheral Leukocytes") load("data/GSE42861.Rdata") else
+#'   if(tissueType == "Blood adult") load("data/GSE42861.Rdata") else        # Peripheral Leukocytes
 #'   if(tissueType == "Blood 5 year olds") load("data/GSE83334.Rdata") else 
 #'   if(tissueType == "Blood newborns") load("data/GSE82273.Rdata") else
 #'   if(tissueType == "Cord-blood (whole blood)") load("data/GSE69176.Rdata") else
@@ -152,7 +152,7 @@ loadDataset = function(tissueType){
   if(tissueType == "Placenta") methPara = Placenta else 
   if(tissueType == "Liver") methPara = Liver else 
   if(tissueType == "Colon") methPara = Colon else 
-  if(tissueType == "Peripheral Leukocytes") methPara = PeripheralLeukocytes else
+  if(tissueType == "Blood adult") methPara = Blood_adult else
   if(tissueType == "Blood 5 year olds") methPara = Blood_5yrOlds else 
   if(tissueType == "Blood newborns") methPara = BloodNewborns else
   if(tissueType == "Cord-blood (whole blood)") methPara = CordBlood_wholeBlood else

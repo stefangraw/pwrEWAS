@@ -2,14 +2,14 @@
 #'
 #' @description pwrEWAS is a computationally efficient tool to estimate power in EWAS as a function of sample and effect size for two-group comparisons of DNAm (e.g., case vs control, exposed vs non-exposed, etc.). Detailed description of in-/outputs, instructions and an example, as well as interpretations of the example results are provided in the following vignette:
 #' 
-#' @param minTotSampleSize Minimum total sample size (default: 10).
-#' @param maxTotSampleSize Maximum total sample size (default: 50).
-#' @param SampleSizeSteps Sample size increments (default: 10).
-#' @param NcntPer Percentage sample group 1 (control group) (default: 0.5).
-#' @param targetDelta Target maximum difference in mean DNAm (default: c(0.2, 0.5).
-#' @param J Number of CpGs tested/simulated (default: 10000).
-#' @param targetDmCpGs Target number of DM CpGs (default: 100).
-#' @param tissueType Select a tissue type from the list of most commonly used tissue types: "Adult (PBMC)" (default), "Saliva", "Lymphoma", "Placenta", "Liver", "Colon", "Peripheral Leukocytes", "Blood 5 year olds", "Blood newborns", "Cord-blood (whole blood)" or "Cord-blood (PBMC)".
+#' @param minTotSampleSize Minimum total sample size.
+#' @param maxTotSampleSize Maximum total sample size.
+#' @param SampleSizeSteps Sample size increments.
+#' @param NcntPer Percentage sample group 1 (control group) (NcntPer = 0.5 indicates a balanced design).
+#' @param targetDelta Target maximum difference in mean DNAm.
+#' @param J Number of CpGs tested/simulated (default: 100000).
+#' @param targetDmCpGs Target number of DM CpGs.
+#' @param tissueType Select a tissue type from the list of most commonly used tissue types: "Adult (PBMC)" (default), "Saliva", "Lymphoma", "Placenta", "Liver", "Colon", "Blood adult", "Blood 5 year olds", "Blood newborns", "Cord-blood (whole blood)" or "Cord-blood (PBMC)".
 #' @param detectionLimit Smallest detectable difference in DNAm (default: 0.01).
 #' @param DMmethod Method of Differential Methylation analysis: "limma" (default), "t-test (unequal var)", "t-test (equal var)", "Wilcox rank sum", "CPGassoc".
 #' @param FDRcritVal FDRcritVal (default: 0.05).
@@ -28,7 +28,7 @@
 #'                    SampleSizeSteps = 10,
 #'                    NcntPer = 10,
 #'                    targetDelta = c(0.2, 0.5),
-#'                    J = 10000,
+#'                    J = 100000,
 #'                    targetDmCpGs = 100,
 #'                    tissueType = "Adult (PBMC)",
 #'                    detectionLimit = 0.01,
@@ -37,22 +37,20 @@
 #'                    core = 4,
 #'                    sims = 50)
 
-pwrEWAS = function(minTotSampleSize = 10, # min total sample size
-                   maxTotSampleSize = 50, # max total sample size
-                   SampleSizeSteps = 10, # steps for increasing total sample size
-                   NcntPer = 0.5, # percentage of control sample
-                   targetDelta = c(0.2, 0.5), # vector of 99 percentile of the target max DM
-                   # CpGonArray, # "max" CpG's on array
-                   J = 10000, # number of simulated CpGs
-                   targetDmCpGs = 100, # target number for truely differentially methylated CpG
-                   # methPara, # dataframe with mean- and var-vector
+pwrEWAS = function(minTotSampleSize, # min total sample size
+                   maxTotSampleSize, # max total sample size
+                   SampleSizeSteps, # steps for increasing total sample size
+                   NcntPer, # percentage of control sample
+                   targetDelta, # vector of 99 percentile of the target max DM
+                   J = 100000, # number of simulated CpGs
+                   targetDmCpGs, # target number for truely differentially methylated CpG
                    tissueType = c("Adult (PBMC)",
                                   "Saliva", 
                                   "Lymphoma",
                                   "Placenta",
                                   "Liver",
                                   "Colon",
-                                  "Peripheral Leukocytes",
+                                  "Blood adult",
                                   "Blood 5 year olds",
                                   "Blood newborns",
                                   "Cord-blood (whole blood)",
