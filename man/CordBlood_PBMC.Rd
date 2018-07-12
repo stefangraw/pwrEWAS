@@ -3,23 +3,15 @@
 \docType{data}
 \name{CordBlood_PBMC}
 \alias{CordBlood_PBMC}
-\title{Prices of 50,000 round cut diamonds.}
-\format{A data frame with 53940 rows and 10 variables}
+\title{Cord-blood (PBMC) [GSE110128]}
+\format{A data frame with 2 columuns, mean (mu) and variance (var), and 485512 rows for CpGs.}
 \source{
-\url{http://www.diamondse.info/}
+\url{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110128}
 }
 \usage{
 CordBlood_PBMC
 }
 \description{
-A dataset containing the prices and other attributes of almost 54,000
-diamonds. The variables are as follows:
-}
-\details{
-\itemize{
-  \item price. price in US dollars (\$326--\$18,823)
-  \item carat. weight of the diamond (0.2--5.01)
-  ...
-}
+Methylation data for GSE110128 was obtained from the genomics data repository GEO. The beta-values for 60/233 patients (cord blood and Control) were used to calculate CpG-specific mean and variance for 485512 CpGs.
 }
 \keyword{datasets}
