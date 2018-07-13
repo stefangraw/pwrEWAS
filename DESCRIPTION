@@ -5,6 +5,7 @@ Authors@R: person("Stefan", "Graw", email = "srgaw@kumc.edu", role = c("aut", "c
 Description: What the package does (one paragraph).
 Depends: 
 	R (>= 3.4.0),
+	shinyBS,
 	foreach
 License: What license is it under?
 Encoding: UTF-8
@@ -17,6 +18,5 @@ Imports:
 	limma,
 	CpGassoc,
 	shiny,
-	shinyBS,
 	ggplot2,
 	parallel
