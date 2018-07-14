@@ -231,7 +231,7 @@ pwrEWAS = function(minTotSampleSize, # min total sample size
         if(length(G1B) > 0) marPower[sim] = length(Sb)/length(G1B) else marPower[sim] = NA
         if(length(G0) > 0) marTypeI[sim] = length(V)/length(G0) else marTypeI[sim] = NA
         if(length(R) > 0) FDR[sim] = length(V)/length(R) else FDR[sim] = NA
-        if(length(Sb) > 0) FDC[sim] = (length(V)+length(Sa))/length(Sb) else FDC[sim] = NA # expected false discovery for each true discovery
+        if(length(Sb) > 0) FDC[sim] = (length(V))/length(Sb) else FDC[sim] = NA # expected false discovery for each true discovery
         classicalPower[sim] = (length(Sa)+length(Sb))/(length(G1A)+length(G1B))
         
       } # end sim
