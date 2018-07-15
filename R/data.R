@@ -62,7 +62,7 @@
 
 
 #' @title Cord-blood (PBMC) [GSE110128]
-#' @description Methylation data for GSE110128 was obtained from the genomics data repository GEO. The beta-values for 60/233 patients (cord blood and Control) were used to calculate CpG-specific mean and variance for 485512 CpGs.
+#' @description Methylation data for GSE110128 was obtained from the genomics data repository GEO. The beta-values for 90/233 patients (cord blood) were used to calculate CpG-specific mean and variance for 485512 CpGs.
 #' @format A data frame with 2 columuns, mean (mu) and variance (var), and 485512 rows for CpGs. 
 #' @source \url{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110128}
 "CordBlood_PBMC"

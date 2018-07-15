@@ -12,6 +12,6 @@
 CordBlood_PBMC
 }
 \description{
-Methylation data for GSE110128 was obtained from the genomics data repository GEO. The beta-values for 60/233 patients (cord blood and Control) were used to calculate CpG-specific mean and variance for 485512 CpGs.
+Methylation data for GSE110128 was obtained from the genomics data repository GEO. The beta-values for 90/233 patients (cord blood) were used to calculate CpG-specific mean and variance for 485512 CpGs.
 }
 \keyword{datasets}
