@@ -64,7 +64,7 @@ pwrEWAS.powerPlot = function(data){
       ggplot2::theme(axis.title.y = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 20, b = 0, l = 0)))+ 
       ggplot2::theme(legend.text=ggplot2::element_text(size=17),
             legend.title=ggplot2::element_text(size=20)) + 
-      ggplot2::scale_colour_discrete(name  = expression(Delta))
+      ggplot2::scale_colour_discrete(name  = expression(Delta[beta]))
     
   }
   print(p)
@@ -103,6 +103,7 @@ pwrEWAS.deltaDensity = function(data, detectionLimit = 0.01){
     lines(density(data[[d]][abs(data[[d]])>detectionLimit], to = -detectionLimit), col = gg_color_hue(length(data))[d], lwd = myLineWd)
   }
   abline(v = c(-detectionLimit, detectionLimit), lty = 3)
+  legend("topright", names(data), col = gg_color_hue(length(data)), lty = 1, lwd = myLineWd, title = expression(Delta[beta]), cex = 1.5)
 }
 
 # pwrEWAS.deltaDensity(out$deltaArray, 0.01)
