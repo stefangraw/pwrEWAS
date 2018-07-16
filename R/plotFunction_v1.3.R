@@ -1,5 +1,14 @@
-myPlotCI3D = function(data#, Nmin, Nmax, Nsteps, deltaSigma
-){
+#' @title Plot funtion to create a power plot
+#'
+#' @description myPlotCI3D create a figure with power (with 95-percentile interval (2.5% & 97.5%)) as a funtion sample size for different effect sizes
+#' 
+#' @param data "powerArray" attribute within the pwrEWAS object create by pwrEWAS
+#' 
+#' @export
+#' 
+#' @examples
+#' myPlotCI3D(data = out$powerArray)
+myPlotCI3D = function(data){
   # sampleSizes = seq(Nmin, Nmax, Nsteps)
   sampleSizes = as.numeric(dimnames(data)[[2]])
   deltas = dimnames(data)[[3]]
@@ -67,7 +76,17 @@ gg_color_hue <- function(n) {
   hcl(h = hues, l = 65, c = 100)[1:n]
 }
 
-myDensityPlots = function(data, detectionLimit){
+#' @title Density plot for simulated differences in mean methylation
+#'
+#' @description myDensityPlots create a density plot of the simulated differences in mean methylation for different effect sizes
+#' 
+#' @param data "deltaArray" attribute within the pwrEWAS object create by pwrEWAS
+#'
+#' @export
+#' 
+#' @examples
+#' myDensityPlots(data = out$deltaArray, detectionLimit = 0.01)
+myDensityPlots = function(data, detectionLimit = 0.01){
   maxDensY = 0
   maxDensX = 0
   for(d in 1:length(data)){
