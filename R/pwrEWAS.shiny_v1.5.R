@@ -61,12 +61,12 @@ pwrEWAS.shiny = function(){
                       sims = input$sim)
         
         # source(file = "plotFunction_v1.3.R")
-        output$powerPlot <- shiny::renderPlot({myPlotCI3D(out$powerArray)})
+        output$powerPlot <- shiny::renderPlot({pwrEWAS.powerPlot(out$powerArray)})
         
         meanPowerTable = cbind(rownames(out$meanPower), round(out$meanPower, 2))
         colnames(meanPowerTable)[1] = shiny::HTML("N</sub> \\ &Delta;<sub>&beta;")
         output$meanPower <- shiny::renderTable({meanPowerTable}, sanitize.text.function = function(x) x)
-        output$deltaDensity = shiny::renderPlot({myDensityPlots(out$deltaArray, input$detectionLimit)})
+        output$deltaDensity = shiny::renderPlot({pwrEWAS.deltaDensity(out$deltaArray, input$detectionLimit)})
       }) # processbar done
     })
     
