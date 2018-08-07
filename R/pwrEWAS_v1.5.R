@@ -131,7 +131,7 @@ pwrEWAS = function(minTotSampleSize, # min total sample size
   multiThreadOut = foreach(d = 1:length(tau), 
                            .combine = combine_tau,
                            .packages=c("truncnorm", "limma", "CpGassoc", "genefilter"),
-                           .export = c("getAlphBet", "getMeanVar", "beta2Mvalue", "limma")) %:%
+                           .export = c("getAlphBet", "getMeanVar", "beta2Mvalue", "limma", "ttestSlow", "ttestFast", "Wilcox", "CPGassoc")) %:%
     foreach(Ntot = totSampleSizes, .combine = combine_totSampleSizes) %dopar% { 
       
       # source(file = "functions.R")  # multi core

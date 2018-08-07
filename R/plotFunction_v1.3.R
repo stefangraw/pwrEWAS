@@ -95,7 +95,7 @@ pwrEWAS.deltaDensity = function(data, detectionLimit = 0.01){
     maxDensX = max(c(maxDensX, max(abs(dens$x))))
   }
   plot(density(data[[1]]), col = "white", ylim = c(0,maxDensY), xlim = c(max(-1,-1.1*maxDensX), min(1,1.1*maxDensX)),
-       main = "", xlab = expression(Delta), cex.axis = 1.5, cex.lab = 1.5)
+       main = "", xlab = expression(Delta[beta]), cex.axis = 1.5, cex.lab = 1.5)
   myLineWd = 2.5
   for(d in 1:length(data)){
     # lines(density(data[[d]][abs(data[[d]])>detectionLimit]), col = gg_color_hue(length(data))[d], lwd = myLineWd)

@@ -30,7 +30,7 @@ beta2Mvalue = function(beta){ # beta to m-value
 # t-test uses UNequal variance
 ttestSlow = function(g1Beta,g2Beta,rCnt,rTx,paired){
   mvals = cbind(beta2Mvalue(g1Beta), beta2Mvalue(g2Beta))
-  ttest = apply(mvals,1,  function (x) t.test(x[1:rCnt], x[(rCnt+1):(rCnt+rTx)], paired = pairedSamples, var.equal = T))
+  ttest = apply(mvals,1,  function (x) t.test(x[1:rCnt], x[(rCnt+1):(rCnt+rTx)], paired = FALSE, var.equal = T))
   temp = NULL
   temp$pval = unlist(lapply(ttest, function(x) x$p.value))
   temp$fdr = p.adjust(temp$pval, method = "fdr")
