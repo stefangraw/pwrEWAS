@@ -99,12 +99,12 @@ getTau = function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGonA
     percentile = NULL
     for(i in 1:100){
       # simulate deltas for J CpG's (number of simulated CpG's later)
-      cpgIdx4Tau = sample(x = 1:CpGonArray, size = J, replace = T) # pick K random CpG's to be changed in mean meth
+      cpgIdx4Tau = sample(x = 1:CpGonArray, size = J, replace = T) # pick J random CpG's to be changed in mean meth
       delta = truncnorm::rtruncnorm(1, mean = 0, sd = tau, 
-                         a=0.5 - methPara$mu[cpgIdx4Tau] - sqrt(0.25-methPara$var[cpgIdx4Tau]), 
-                         b=0.5 - methPara$mu[cpgIdx4Tau] + sqrt(0.25-methPara$var[cpgIdx4Tau]))
-      # 99% percentile 
-      percentile[i] = quantile(abs(delta),0.99)
+                                    a=0.5 - methPara$mu[cpgIdx4Tau] - sqrt(0.25-methPara$var[cpgIdx4Tau]), 
+                                    b=0.5 - methPara$mu[cpgIdx4Tau] + sqrt(0.25-methPara$var[cpgIdx4Tau]))
+      # 99.999% percentile 
+      percentile[i] = quantile(abs(delta),0.9999)
     }
     # print(mean(percentile))
     
@@ -125,7 +125,8 @@ getTau = function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGonA
   if(cnt == maxCnt) stop("Max iterations reached")
   truelyDMperc = mean(abs(delta) > detectionLimit)
   out$tau = tau
-  out$K = round(1/truelyDMperc * targetDmCpGs)
+  targetK = round(1/truelyDMperc * targetDmCpGs)
+  out$K = ifelse(targetK > J, J, targetK)
   return(out)
 }
 
@@ -148,17 +149,18 @@ getTau = function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGonA
 loadDataset = function(tissueType){
   methPara = NULL
   if(tissueType == "Saliva") methPara = Saliva else 
-  if(tissueType == "Lymphoma") methPara = Lymphoma else 
-  if(tissueType == "Placenta") methPara = Placenta else 
-  if(tissueType == "Liver") methPara = Liver else 
-  if(tissueType == "Colon") methPara = Colon else 
-  if(tissueType == "Blood adult") methPara = Blood_adult else
-  if(tissueType == "Blood 5 year olds") methPara = Blood_5yrOlds else 
-  if(tissueType == "Blood newborns") methPara = BloodNewborns else
-  if(tissueType == "Cord-blood (whole blood)") methPara = CordBlood_wholeBlood else
-  if(tissueType == "Cord-blood (PBMC)") methPara = CordBlood_PBMC else
-  if(tissueType == "Adult (PBMC)") methPara = Adult_PBMC else
-  stop("Tissue type not found")
-  return(methPara)
+    if(tissueType == "Sperm") methPara = Sperm else 
+      if(tissueType == "Lymphoma") methPara = Lymphoma else 
+      if(tissueType == "Placenta") methPara = Placenta else 
+        if(tissueType == "Liver") methPara = Liver else 
+          if(tissueType == "Colon") methPara = Colon else 
+            if(tissueType == "Blood adult") methPara = Blood_adult else
+              if(tissueType == "Blood 5 year olds") methPara = Blood_5yrOlds else 
+                if(tissueType == "Blood newborns") methPara = BloodNewborns else
+                  if(tissueType == "Cord-blood (whole blood)") methPara = CordBlood_wholeBlood else
+                    if(tissueType == "Cord-blood (PBMC)") methPara = CordBlood_PBMC else
+                      if(tissueType == "Adult (PBMC)") methPara = Adult_PBMC else
+                        stop("Tissue type not found")
+                      return(methPara)
 }
 

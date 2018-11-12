@@ -6,7 +6,7 @@
 \usage{
 pwrEWAS(minTotSampleSize, maxTotSampleSize, SampleSizeSteps, NcntPer,
   targetDelta, J = 1e+05, targetDmCpGs, tissueType = c("Adult (PBMC)",
-  "Saliva", "Lymphoma", "Placenta", "Liver", "Colon", "Blood adult",
+  "Saliva", "Sperm", "Lymphoma", "Placenta", "Liver", "Colon", "Blood adult",
   "Blood 5 year olds", "Blood newborns", "Cord-blood (whole blood)",
   "Cord-blood (PBMC)"), detectionLimit = 0.01, DMmethod = c("limma",
   "t-test (unequal var)", "t-test (equal var)", "Wilcox rank sum", "CPGassoc"),
@@ -27,7 +27,7 @@ pwrEWAS(minTotSampleSize, maxTotSampleSize, SampleSizeSteps, NcntPer,
 
 \item{targetDmCpGs}{Target number of DM CpGs.}
 
-\item{tissueType}{Select a tissue type from the list of most commonly used tissue types: "Adult (PBMC)" (default), "Saliva", "Lymphoma", "Placenta", "Liver", "Colon", "Blood adult", "Blood 5 year olds", "Blood newborns", "Cord-blood (whole blood)" or "Cord-blood (PBMC)".}
+\item{tissueType}{Select a tissue type from the list of most commonly used tissue types: "Adult (PBMC)" (default), "Saliva", "Sperm", "Lymphoma", "Placenta", "Liver", "Colon", "Blood adult", "Blood 5 year olds", "Blood newborns", "Cord-blood (whole blood)" or "Cord-blood (PBMC)".}
 
 \item{detectionLimit}{Smallest detectable difference in DNAm (default: 0.01).}
 

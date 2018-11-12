@@ -9,7 +9,7 @@
 #' @param targetDelta Target maximum difference in mean DNAm.
 #' @param J Number of CpGs tested/simulated (default: 100000).
 #' @param targetDmCpGs Target number of DM CpGs.
-#' @param tissueType Select a tissue type from the list of most commonly used tissue types: "Adult (PBMC)" (default), "Saliva", "Lymphoma", "Placenta", "Liver", "Colon", "Blood adult", "Blood 5 year olds", "Blood newborns", "Cord-blood (whole blood)" or "Cord-blood (PBMC)".
+#' @param tissueType Select a tissue type from the list of most commonly used tissue types: "Adult (PBMC)" (default), "Saliva", "Sperm", "Lymphoma", "Placenta", "Liver", "Colon", "Blood adult", "Blood 5 year olds", "Blood newborns", "Cord-blood (whole blood)" or "Cord-blood (PBMC)".
 #' @param detectionLimit Smallest detectable difference in DNAm (default: 0.01).
 #' @param DMmethod Method of Differential Methylation analysis: "limma" (default), "t-test (unequal var)", "t-test (equal var)", "Wilcox rank sum", "CPGassoc".
 #' @param FDRcritVal FDRcritVal (default: 0.05).
@@ -46,6 +46,7 @@ pwrEWAS = function(minTotSampleSize, # min total sample size
                    targetDmCpGs, # target number for truely differentially methylated CpG
                    tissueType = c("Adult (PBMC)",
                                   "Saliva", 
+                                  "Sperm", 
                                   "Lymphoma",
                                   "Placenta",
                                   "Liver",

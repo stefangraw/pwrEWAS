@@ -5,6 +5,13 @@
 "Saliva"
 
 
+#' @title Sperm (GSE114753)
+#' @description Methylation data for GSE114753 was obtained from the genomics data repository GEO. The beta-values for all 78/154 patients were used to calculate CpG-specific mean and variance for 485512 CpGs.
+#' @format A data frame with 2 columuns, mean (mu) and variance (var), and 485512 rows for CpGs. 
+#' @source \url{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE114753}
+"Sperm"
+
+
 #' @title Lymphoma (GSE42372)
 #' @description Methylation data for GSE42372 was obtained from the genomics data repository GEO. The beta-values for 20/31 patients (disease state: non-HIV lymphoma) were used to calculate CpG-specific mean and variance for 485577 CpGs.
 #' @format A data frame with 2 columuns, mean (mu) and variance (var), and 485577 rows for CpGs. 

@@ -97,6 +97,7 @@ pwrEWAS.shiny = function(){
         ### Inputs
         shiny::selectInput(inputId = "tissueType", label = "Tissue Type", choices = c("Adult (PBMC)",
                                                                                "Saliva", 
+                                                                               "Sperm", 
                                                                                "Lymphoma",
                                                                                "Placenta",
                                                                                "Liver",
