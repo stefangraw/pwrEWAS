@@ -3,7 +3,7 @@
 \docType{data}
 \name{Blood_adult}
 \alias{Blood_adult}
-\title{Blood (Adults) - Peripheral Leukocytes [GSE42861]  missing}
+\title{Blood (Adults) - Peripheral Leukocytes [GSE42861]}
 \format{A data frame with 2 columuns, mean (mu) and variance (var), and 485577 rows for CpGs.}
 \source{
 \url{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42861}
