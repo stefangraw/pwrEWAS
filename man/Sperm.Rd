@@ -3,7 +3,7 @@
 \docType{data}
 \name{Sperm}
 \alias{Sperm}
-\title{Sperm (GSE114753)}
+\title{Sperm (GSE114753 missing)}
 \format{A data frame with 2 columuns, mean (mu) and variance (var), and 485512 rows for CpGs.}
 \source{
 \url{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE114753}
