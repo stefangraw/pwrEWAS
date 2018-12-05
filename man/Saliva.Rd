@@ -3,7 +3,7 @@
 \docType{data}
 \name{Saliva}
 \alias{Saliva}
-\title{Saliva (GSE92767)}
+\title{Saliva (GSE92767 test)}
 \format{A data frame with 2 columuns, mean (mu) and variance (var), and 485575 rows for CpGs.}
 \source{
 \url{https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE92767}
