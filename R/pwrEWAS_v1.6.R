@@ -80,7 +80,14 @@ pwrEWAS = function(minTotSampleSize, # min total sample size
   # library(doParallel)
   # library(abind)
   # library(foreach)
-  # source(file = "functions.R")  # multi core
+  
+  # install non CRAN packages
+  if (!require("limma")){
+    if (!requireNamespace("BiocManager", quietly = TRUE))
+      install.packages("BiocManager")
+    BiocManager::install("limma", version = "3.8")
+  }
+  
   tissueType = match.arg(tissueType)
   DMmethod = match.arg(DMmethod)
   

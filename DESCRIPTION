@@ -15,7 +15,6 @@ Imports:
     doParallel,
     abind,
 	truncnorm,
-	limma,
 	CpGassoc,
 	shiny,
 	ggplot2,

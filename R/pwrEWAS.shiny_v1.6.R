@@ -14,14 +14,6 @@ pwrEWAS.shiny = function(){
   # library(ggplot2)
   # library(parallel)
   
-  # install non CRAN packages
-  if (!require("limma")) install.packages("pacman"){
-    if (!requireNamespace("BiocManager", quietly = TRUE))
-      install.packages("BiocManager")
-    BiocManager::install("limma", version = "3.8")
-  }
-
-  
   # user input / default values
   input2 = NULL
   input2$Nmin = 10
