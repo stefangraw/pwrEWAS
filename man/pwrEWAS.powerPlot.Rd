@@ -4,14 +4,19 @@
 \alias{pwrEWAS.powerPlot}
 \title{Plot funtion to create a power plot}
 \usage{
-pwrEWAS.powerPlot(data)
+pwrEWAS.powerPlot(data, sd = FALSE)
 }
 \arguments{
-\item{data}{"powerArray" attribute within the pwrEWAS object create by pwrEWAS}
+\item{data}{"powerArray" attribute within the pwrEWAS object create by pwrEWAS.}
+
+\item{sd}{FALSE if targetDelta was specified in pwrEWAS, and TRUE if deltaSD was specified in pwrEWAS.}
+
+\item{detectionLimit}{Detection limit specified in pwrEWAS.}
 }
 \description{
 pwrEWAS.powerPlot create a figure with power (with 95-percentile interval (2.5% & 97.5%)) as a funtion sample size for different effect sizes
 }
 \examples{
-pwrEWAS.powerPlot(data = out$powerArray)
+pwrEWAS.powerPlot(data = out$powerArray, sd = FALSE)
+pwrEWAS.powerPlot(data = out$powerArray, sd = TRUE)
 }

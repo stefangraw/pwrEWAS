@@ -4,13 +4,13 @@ Version: 1.0
 Authors@R: person("Stefan", "Graw", email = "srgaw@kumc.edu", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 Depends: 
-	R (>= 3.3.0),
+	R (>= 3.5.0),
 	shinyBS,
 	foreach
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.1
 Imports:
     doParallel,
     abind,
@@ -19,4 +19,5 @@ Imports:
 	CpGassoc,
 	shiny,
 	ggplot2,
-	parallel
+	parallel,
+	shinyWidgets

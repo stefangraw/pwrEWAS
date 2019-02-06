@@ -4,14 +4,19 @@
 \alias{pwrEWAS.deltaDensity}
 \title{Density plot for simulated differences in mean methylation}
 \usage{
-pwrEWAS.deltaDensity(data, detectionLimit = 0.01)
+pwrEWAS.deltaDensity(data, detectionLimit = 0.01, sd = FALSE)
 }
 \arguments{
 \item{data}{"deltaArray" attribute within the pwrEWAS object create by pwrEWAS}
+
+\item{detectionLimit}{Detection limit specified in pwrEWAS.}
+
+\item{sd}{FALSE if targetDelta was specified in pwrEWAS, and TRUE if deltaSD was specified in pwrEWAS.}
 }
 \description{
 pwrEWAS.deltaDensity create a density plot of the simulated differences in mean methylation for different effect sizes
 }
 \examples{
-pwrEWAS.deltaDensity(data = out$deltaArray, detectionLimit = 0.01)
+pwrEWAS.deltaDensity(data = out$deltaArray, detectionLimit = 0.01, sd = FALSE)
+pwrEWAS.deltaDensity(data = out$deltaArray, detectionLimit = 0.01, sd = TRUE)
 }
