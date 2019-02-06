@@ -87,6 +87,11 @@ pwrEWAS = function(minTotSampleSize, # min total sample size
       install.packages("BiocManager")
     BiocManager::install("limma", version = "3.8")
   }
+  if (!require("genefilter")){
+    if (!requireNamespace("BiocManager", quietly = TRUE))
+      install.packages("BiocManager")
+    BiocManager::install("genefilter", version = "3.8")
+  }
   
   tissueType = match.arg(tissueType)
   DMmethod = match.arg(DMmethod)
