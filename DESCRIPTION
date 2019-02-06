@@ -19,4 +19,5 @@ Imports:
 	shiny,
 	ggplot2,
 	parallel,
-	shinyWidgets
+	shinyWidgets,
+	BiocManager
