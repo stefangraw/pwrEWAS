@@ -91,7 +91,6 @@ getTau <- function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGon
       # 99.999% percentile 
       percentile[i] <- quantile(abs(delta),0.9999)
     }
-    # print(mean(percentile))
     
     # next tau step
     if(mean(percentile) < targetDelta - 0.5*detectionLimit & tau >= 1){

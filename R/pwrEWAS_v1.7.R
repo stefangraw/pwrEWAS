@@ -157,6 +157,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
       K[d] <- myTau$K # number of changed CpGs
     }
     cat(paste("done", " [",Sys.time(),"]\n", sep = ""))
+    print(paste("The following taus were chosen: ", paste(tau, collapse = ", "), sep = ""))
   } else {
     tau <- deltaSD 
     K <- NULL

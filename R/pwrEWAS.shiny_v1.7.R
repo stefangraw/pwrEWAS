@@ -42,8 +42,9 @@ pwrEWAS_shiny <- function(){
       # reset plots
       output$powerPlot <- NULL
       output$meanPower <- NULL
-      output$probTPTable <- NULL
+      output$probTP <- NULL
       output$deltaDensity <- NULL
+      output$log <- NULL
       
       shiny::withProgress(message = 'Program running.', detail = "Please wait!", value = NULL, {
         
@@ -172,7 +173,7 @@ pwrEWAS_shiny <- function(){
                                                                                                       "Blood newborns",
                                                                                                       "Cord-blood (whole blood)",
                                                                                                       "Cord-blood (PBMC)")),
-                        'Heterogeneity of different tissue types can have effects on the results. Please select your tissue type of intersted or one you believe is the closest.'),
+                        'Heterogeneity of different tissue types can have effects on the results. Please select your tissue type of interest or one you believe is the closest.'),
         shinyBS::popify(shiny::numericInput(inputId = "Nmin", label = "Minimum total sample size", value = input2$Nmin, min = 4, step = 1),
                         'Lowest total sample sizes to be considered.'),
         shinyBS::popify(shiny::numericInput(inputId = "Nmax", label = "Maximum total sample size", value = input2$Nmax, min = 4, step = 1),
@@ -185,15 +186,15 @@ pwrEWAS_shiny <- function(){
         shinyBS::popify(shiny::numericInput(inputId = "J", label = "Number of CpGs tested", value = input2$J, min = 1, step = 10000),
                         'Number of CpG site that will simulated and tested (increasing Number of CpGs tested will require increasing RAM (memory)).'),
         shinyBS::popify(shiny::numericInput(inputId = "targetDmCpGs", label = "Target number of DM CpGs", value = input2$targetDmCpGs, min = 1, step = 10),
-                        'Target number of CpGs simulated with meaningful differnces (differences greater than detection limit)'),
+                        'Target number of CpGs simulated with meaningful differences (differences greater than detection limit)'),
         
         shinyBS::popify(shinyWidgets::radioGroupButtons(inputId = "switchTargetDmSd",choices = c("Target delta", "sd(delta)"), justified = TRUE),
-                        'The expected simulated differences in methylation can be control by "Target delta" or "sd (delta)." For "Target delta" standard deviations of the simulated differences is automatically determined such that the 99%til of the simulated differnces are within a range around the provided values. If "sd(delta)" is chosen, differnces in methylation will be simulated using provided standard deviation.'),
+                        'The expected simulated differences in methylation can be control by "Target delta" or "sd (delta)." For "Target delta" standard deviations of the simulated differences is automatically determined such that the 99%til of the simulated differences are within a range around the provided values. If "sd(delta)" is chosen, differences in methylation will be simulated using provided standard deviation.'),
         
         shiny::conditionalPanel( 
           condition = "input.switchTargetDmSd == 'Target delta'",
           shinyBS::popify(shiny::textInput(inputId = "targetDeltaString", label = "List of target max DM (comma delimited)", value = input2$targetDeltaString),
-                          'Standard deviations of the simulated differences is automatically determined such that the 99%til of the simulated differnces are within a range around the provided values.')
+                          'Standard deviations of the simulated differences is automatically determined such that the 99%til of the simulated differences are within a range around the provided values.')
         ),
         
         shiny::conditionalPanel( 
@@ -214,9 +215,9 @@ pwrEWAS_shiny <- function(){
           shinyBS::popify(shiny::selectInput(inputId = "method", label = "Method for DM analysis", choices = c("limma", "t-test (unequal var)", "t-test (equal var)", "Wilcox rank sum", "CPGassoc")),
                           'Method used to perform differential methylation analysis.'),
           shinyBS::popify(shiny::numericInput(inputId = "sim", label = "Number of simulated data sets", value = input2$sim, min = 1, step = 10),
-                          'Number of repeated siumlation/simulated data sets under the same conditions for consistent results.'),
+                          'Number of repeated simulation/simulated data sets under the same conditions for consistent results.'),
           shinyBS::popify(shiny::numericInput(inputId = "cores", label = "Threads", value = input2$cores, min = 1, max = parallel::detectCores(all.tests = FALSE, logical = TRUE)-1, step = 1),
-                          'Number of cores used to run multiple threads. Ideally, the number of different total samples sizes multiplied by the number of effect sizes should be a mutiple (m) of the number of cores (#sampleSizes * #effectSizes = m * #threads). An increasing number of threads will require an increasing amount of RAM (memory).', placement =  "top")
+                          'Number of cores used to run multiple threads. Ideally, the number of different total samples sizes multiplied by the number of effect sizes should be a multiple (m) of the number of cores (#sampleSizes * #effectSizes = m * #threads). An increasing number of threads will require an increasing amount of RAM (memory).', placement =  "top")
         ),
         
         # submitButton(text = "Simulate"),
