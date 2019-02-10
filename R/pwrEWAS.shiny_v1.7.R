@@ -46,10 +46,10 @@ pwrEWAS_shiny <- function(){
       output$deltaDensity <- NULL
       output$log <- NULL
       
-      shiny::withProgress(message = 'Program running.', detail = "Please wait!", value = NULL, {
+      shiny::withProgress(message = 'Program running. Please wait.', detail = "This can take several minutes. Progress will be displayed in R console.", value = NULL, {
         
         runTimeStart <- Sys.time()
-        if(input$switchTargetDmSd == 'Target delta'){
+        if(input$switchTargetDmSd == 1){
           out <- pwrEWAS(minTotSampleSize = input$Nmin,
                          maxTotSampleSize = input$Nmax,
                          SampleSizeSteps = input$Nsteps,
@@ -63,7 +63,7 @@ pwrEWAS_shiny <- function(){
                          FDRcritVal = input$FDRcritVal,
                          core = input$cores,
                          sims = input$sim)
-        } else if(input$switchTargetDmSd == 'sd(delta)'){
+        } else if(input$switchTargetDmSd == 2){
           out <- pwrEWAS(minTotSampleSize = input$Nmin,
                          maxTotSampleSize = input$Nmax,
                          SampleSizeSteps = input$Nsteps,
@@ -79,28 +79,28 @@ pwrEWAS_shiny <- function(){
                          sims = input$sim)
         }
         
-        output$powerPlot <- shiny::renderPlot({isolate(pwrEWAS_powerPlot(out$powerArray, sd = ifelse(input$switchTargetDmSd == 'Target delta', FALSE, TRUE)))})
+        output$powerPlot <- shiny::renderPlot({isolate(pwrEWAS_powerPlot(out$powerArray, sd = ifelse(input$switchTargetDmSd == 1, FALSE, TRUE)))})
         
         # mean power table
         meanPowerTable <- cbind(rownames(out$meanPower), round(out$meanPower, 2))
-        if(input$switchTargetDmSd == 'Target delta'){
+        if(input$switchTargetDmSd == 1){
           colnames(meanPowerTable)[1] <- shiny::HTML("N</sub> \\ &Delta;<sub>&beta;")
-        } else if(input$switchTargetDmSd == 'sd(delta)'){
-          colnames(meanPowerTable)[1] <- shiny::HTML("N</sub> \\ sd(&Delta;<sub>&beta;)")
+        } else if(input$switchTargetDmSd == 2){
+          colnames(meanPowerTable)[1] <- shiny::HTML("N</sub> \\ SD(&Delta;<sub>&beta;)")
         }
         positionToAddTitle <- ceiling(dim(meanPowerTable)[2]/2)
         colnames(meanPowerTable)[positionToAddTitle] <- paste0(shiny::HTML("Power<br/>"), colnames(meanPowerTable)[positionToAddTitle])
         output$meanPower <- shiny::renderTable({meanPowerTable}, sanitize.text.function = function(x) x)
         
         # delta density plot
-        output$deltaDensity <- shiny::renderPlot({isolate(pwrEWAS_deltaDensity(out$deltaArray, input$detectionLimit, sd = ifelse(input$switchTargetDmSd == 'Target delta', FALSE, TRUE)))})
+        output$deltaDensity <- shiny::renderPlot({isolate(pwrEWAS_deltaDensity(out$deltaArray, input$detectionLimit, sd = ifelse(input$switchTargetDmSd == 1, FALSE, TRUE)))})
         
         # probability of detecting at least one TP
         probTPTable <- cbind(rownames(out$metric$probTP), round(out$metric$probTP, 2))
-        if(input$switchTargetDmSd == 'Target delta'){
+        if(input$switchTargetDmSd == 1){
           colnames(probTPTable)[1] <- shiny::HTML("N</sub> \\ &Delta;<sub>&beta;")
-        } else if(input$switchTargetDmSd == 'sd(delta)'){
-          colnames(probTPTable)[1] <- shiny::HTML("N</sub> \\ sd(&Delta;<sub>&beta;)")
+        } else if(input$switchTargetDmSd == 2){
+          colnames(probTPTable)[1] <- shiny::HTML("N</sub> \\ SD(&Delta;<sub>&beta;)")
         }
         colnames(probTPTable)[positionToAddTitle] <- paste0(shiny::HTML("P(#TP&ge;1) <br/>"), colnames(probTPTable)[positionToAddTitle])
         output$probTP <- shiny::renderTable({probTPTable}, sanitize.text.function = function(x) x)
@@ -117,12 +117,12 @@ pwrEWAS_shiny <- function(){
           "Percentage samples in group 1 = ", input$NCntPer, "\n",
           "Number of CpGs to be tested = ", input$J, "\n",
           "Target number of DM CpGs = ", input$targetDmCpGs, "\n",
-          if(input$switchTargetDmSd == 'Target delta'){
-            paste0("'Target delta' was selected \n", 
-                   "List of target max DM (comma delimited) = ", input$targetDeltaString)
-          } else if(input$switchTargetDmSd == 'sd(delta)'){
-            paste0("'sd(delta)' was selected \n", 
-                   "sd (comma delimited) = ", input$tauString)}, "\n",
+          if(input$switchTargetDmSd == 1){
+            paste0("'Target max Delta' was selected \n", 
+                   "Target maximal difference in DNAm (comma delimited) = ", input$targetDeltaString)
+          } else if(input$switchTargetDmSd == 2){
+            paste0("'SD(&Delta;)Delta)' was selected \n", 
+                   "Std. dev. of difference in DNAm (comma delimited) = ", input$tauString)}, "\n",
           "Target FDR = ", input$FDRcritVal, "\n",
           "Detection Limit = ", input$detectionLimit, "\n",
           "Method for DM analysis = ", input$method, "\n",
@@ -140,7 +140,7 @@ pwrEWAS_shiny <- function(){
   
   ui <- shiny::fluidPage(
     shiny::tags$head(shiny::tags$style(shiny::HTML(".shiny-notification {
-                            height: 70px;
+                            height: 150px;
                             width: 400px;
                             position:fixed;
                             font-size: 200%;
@@ -188,18 +188,19 @@ pwrEWAS_shiny <- function(){
         shinyBS::popify(shiny::numericInput(inputId = "targetDmCpGs", label = "Target number of DM CpGs", value = input2$targetDmCpGs, min = 1, step = 10),
                         'Target number of CpGs simulated with meaningful differences (differences greater than detection limit)'),
         
-        shinyBS::popify(shinyWidgets::radioGroupButtons(inputId = "switchTargetDmSd",choices = c("Target delta", "sd(delta)"), justified = TRUE),
-                        'The expected simulated differences in methylation can be control by "Target delta" or "sd (delta)." For "Target delta" standard deviations of the simulated differences is automatically determined such that the 99%til of the simulated differences are within a range around the provided values. If "sd(delta)" is chosen, differences in methylation will be simulated using provided standard deviation.'),
+        shinyBS::popify(shinyWidgets::radioGroupButtons(inputId = "switchTargetDmSd",choiceValues = c(1,2), justified = TRUE, choiceNames = c(shiny::HTML("Target max &Delta;"), shiny::HTML("SD(&Delta;)"))),
+                        shiny::HTML('The expected simulated differences in methylation can be control by "Target max &Delta;" or "SD(&Delta;)". For "Target max &Delta;" standard deviations of the simulated differences is automatically determined such that the 99%til of the simulated differences are within a range around the provided values. If "SD(&Delta;)" is chosen, differences in methylation will be simulated using provided standard deviation.')),
+
         
         shiny::conditionalPanel( 
-          condition = "input.switchTargetDmSd == 'Target delta'",
-          shinyBS::popify(shiny::textInput(inputId = "targetDeltaString", label = "List of target max DM (comma delimited)", value = input2$targetDeltaString),
+          condition = "input.switchTargetDmSd == 1",
+          shinyBS::popify(shiny::textInput(inputId = "targetDeltaString", label = "Target maximal difference in DNAm (comma delimited)", value = input2$targetDeltaString),
                           'Standard deviations of the simulated differences is automatically determined such that the 99%til of the simulated differences are within a range around the provided values.')
         ),
         
         shiny::conditionalPanel( 
-          condition = "input.switchTargetDmSd == 'sd(delta)'",
-          shinyBS::popify(shiny::textInput(inputId = "tauString", label = "sd (comma delimited)", value = input2$tauString),
+          condition = "input.switchTargetDmSd == 2",
+          shinyBS::popify(shiny::textInput(inputId = "tauString", label = "Std. dev. of difference in DNAm (comma delimited)", value = input2$tauString),
                           'Differnces in methylation will be simulated using provided standard deviation.')
         ),
         

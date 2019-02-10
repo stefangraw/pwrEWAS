@@ -103,8 +103,8 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
   
   # initalize multi thread clusters
   cl <- parallel::makeCluster(core) # multi core
-  doParallel::registerDoParallel(cl) # multi core
-  
+  doSNOW::registerDoSNOW(cl)
+  # doParallel::registerDoParallel(cl) # multi core
   
   # combining function for foreach loops
   combine_tau <- function(listA, listB){
@@ -166,13 +166,22 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
     }
   }
   
+
+  
   # main function
-  cat(paste("[",Sys.time(),"] ", "Running simulation ...", sep = ""))
+  startTime = Sys.time()
+  cat(paste("[",startTime,"] ", "Running simulation\n", sep = ""))
+  iterations <- length(totSampleSizes) * length(tau)
+  pb <- txtProgressBar(max = iterations, style = 3)
+  progress <- function(n) setTxtProgressBar(pb, n)
+  opts <- list(progress = progress)
   multiThreadOut <- foreach(d = 1:length(tau), 
                             .combine = combine_tau,
                             .packages=c("truncnorm", "limma", "CpGassoc", "genefilter"),
                             .export = c("getAlphBet", "getMeanVar", "beta2Mvalue", "limma", "ttestSlow", "ttestFast", "Wilcox", "CPGassoc")) %:%
-    foreach(Ntot = totSampleSizes, .combine = combine_totSampleSizes) %dopar% { 
+    foreach(Ntot = totSampleSizes, .combine = combine_totSampleSizes, .options.snow = opts) %dopar% { 
+      
+      setTxtProgressBar(pb, (d-1)*length(totSampleSizes) + which(Ntot==totSampleSizes))
       
       Ncnt <- round(Ntot * NcntPer)
       Ntx <- Ntot - Ncnt
@@ -287,8 +296,9 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
       outSim[["metric"]]$probTP <- probTP
       outSim
     } # end tau and totSampleSizes
+  close(pb)
   parallel::stopCluster(cl) 
-  cat(paste("done", " [",Sys.time(),"]\n", sep = ""))
+  cat(paste("[",startTime,"] Running simulation ... done [",Sys.time(),"]\n", sep = ""))
   
   # dirty fix
   if(is.null(targetDelta)) targetDelta <- tau

@@ -14,7 +14,8 @@ Imports:
 	ggplot2,
 	parallel,
 	shinyWidgets,
-	BiocManager
+	BiocManager,
+	doSNOW
 Depends: 
 	R (>= 3.3.0),
 	shinyBS,
