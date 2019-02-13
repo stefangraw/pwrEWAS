@@ -40,8 +40,8 @@ pwrEWAS_powerPlot <- function(data, sd = FALSE){
     } else  dataSlice <- matrix(data[,,j])
     
     for(i in 1:dim(dataSlice)[2]){
-      L[i] <- quantile(dataSlice[,i], 0.025, na.rm = T)
-      U[i] <- quantile(dataSlice[,i], 0.975, na.rm = T)
+      L[i] <- quantile(dataSlice[,i], 0.025, na.rm = TRUE)
+      U[i] <- quantile(dataSlice[,i], 0.975, na.rm = TRUE)
     }
     
     dftemp[[j]] <- data.frame(x = sampleSizes, y = colMeans(dataSlice) , 

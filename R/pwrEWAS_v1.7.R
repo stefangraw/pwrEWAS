@@ -81,13 +81,13 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
   # library(abind)
   # library(foreach)
   
-  # install non CRAN packages
-  if (!require("limma")){
-    BiocManager::install("limma", version = "3.8", ask = FALSE)
-  }
-  if (!require("genefilter")){
-    BiocManager::install("genefilter", version = "3.8", ask = FALSE)
-  }
+  # # install non CRAN packages
+  # if (!require("limma")){
+  #   BiocManager::install("limma", version = "3.8", ask = FALSE)
+  # }
+  # if (!require("genefilter")){
+  #   BiocManager::install("genefilter", version = "3.8", ask = FALSE)
+  # }
   
   tissueType <- match.arg(tissueType)
   DMmethod <- match.arg(DMmethod)
@@ -166,7 +166,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
     }
   }
   
-
+  
   
   # main function
   startTime = Sys.time()
@@ -197,7 +197,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
       for(sim in 1:sims){
         
         ## sample CpGs
-        cpgIdx <- sample(x = 1:CpGonArray, size = J, replace = T) # pick J random CpG's to be simulated
+        cpgIdx <- sample(x = 1:CpGonArray, size = J, replace = TRUE) # pick J random CpG's to be simulated
         cpgIdxName <- paste(1:J, "_", rownames(methPara)[cpgIdx], sep = "") # ensuring unique CpG name (allowing unique sampling with replacement)
         changedCpgsIdx <- sample(x = cpgIdx, size = K[d]) # pick K random CpG's to be changed in mean meth
         changedCpgsIdxName <- cpgIdxName[match(changedCpgsIdx, cpgIdx)]

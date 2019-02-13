@@ -6,6 +6,9 @@
 #' @keywords DNAm microarray power Shiny
 #' 
 #' @export
+#' 
+#' @examples
+#' pwrEWAS_shiny()
 
 
 pwrEWAS_shiny <- function(){

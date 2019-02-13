@@ -21,7 +21,7 @@ beta2Mvalue <- function(beta){ # beta to m-value
 # t-test uses UNequal variance
 ttestSlow <- function(g1Beta,g2Beta,rCnt,rTx,paired){
   mvals <- cbind(beta2Mvalue(g1Beta), beta2Mvalue(g2Beta))
-  ttest <- apply(mvals,1,  function (x) t.test(x[1:rCnt], x[(rCnt+1):(rCnt+rTx)], paired = FALSE, var.equal = T))
+  ttest <- apply(mvals,1,  function (x) t.test(x[1:rCnt], x[(rCnt+1):(rCnt+rTx)], paired = FALSE, var.equal = TRUE))
   temp <- NULL
   temp$pval <- unlist(lapply(ttest, function(x) x$p.value))
   temp$fdr <- p.adjust(temp$pval, method = "fdr")
@@ -32,7 +32,7 @@ ttestSlow <- function(g1Beta,g2Beta,rCnt,rTx,paired){
 # t-test uses equal variance
 ttestFast <- function(g1Beta,g2Beta,rCnt,rTx){
   mvals <- cbind(beta2Mvalue(g1Beta), beta2Mvalue(g2Beta))
-  ttest <- genefilter::rowttests(mvals, fac = factor(c(rep("g1",rCnt),rep("g2",rTx))), tstatOnly = F)  # faster: tstatOnly = T
+  ttest <- genefilter::rowttests(mvals, fac = factor(c(rep("g1",rCnt),rep("g2",rTx))), tstatOnly = FALSE)  # faster: tstatOnly = T
   temp <- NULL
   temp$pval <- ttest$p.value
   temp$fdr <- p.adjust(temp$pval, method = "fdr")
@@ -43,7 +43,7 @@ ttestFast <- function(g1Beta,g2Beta,rCnt,rTx){
 # Wilcox rank sum test
 Wilcox <- function(g1Beta, g2Beta, rCnt,rTx){
   mvals <- cbind(beta2Mvalue(g1Beta), beta2Mvalue(g2Beta))
-  WRS <- apply(mvals,1,  function (x) wilcox.test(x[1:rCnt] - x[(rCnt+1):(rCnt+rTx)], correct=T))
+  WRS <- apply(mvals,1,  function (x) wilcox.test(x[1:rCnt] - x[(rCnt+1):(rCnt+rTx)], correct=TRUE))
   temp <- NULL
   temp$pval <- unlist(lapply(WRS, function(x) x$p.value))
   temp$fdr <- p.adjust(temp$pval, method = "fdr")
@@ -84,7 +84,7 @@ getTau <- function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGon
     percentile <- NULL
     for(i in 1:100){
       # simulate deltas for J CpG's (number of simulated CpG's later)
-      cpgIdx4Tau <- sample(x = 1:CpGonArray, size = J, replace = T) # pick J random CpG's to be changed in mean meth
+      cpgIdx4Tau <- sample(x = 1:CpGonArray, size = J, replace = TRUE) # pick J random CpG's to be changed in mean meth
       delta <- truncnorm::rtruncnorm(1, mean = 0, sd = tau, 
                                      a=0.5 - methPara$mu[cpgIdx4Tau] - sqrt(0.25-methPara$var[cpgIdx4Tau]), 
                                      b=0.5 - methPara$mu[cpgIdx4Tau] + sqrt(0.25-methPara$var[cpgIdx4Tau]))
@@ -118,7 +118,7 @@ getTau <- function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGon
 
 
 getK <- function(targetDmCpGs, methPara, detectionLimit, J, CpGonArray, tau){
-  cpgIdx4Tau <- sample(x = 1:CpGonArray, size = J, replace = T) # pick J random CpG's to be changed in mean meth
+  cpgIdx4Tau <- sample(x = 1:CpGonArray, size = J, replace = TRUE) # pick J random CpG's to be changed in mean meth
   delta <- truncnorm::rtruncnorm(1, mean = 0, sd = tau, 
                                  a=0.5 - methPara$mu[cpgIdx4Tau] - sqrt(0.25-methPara$var[cpgIdx4Tau]), 
                                  b=0.5 - methPara$mu[cpgIdx4Tau] + sqrt(0.25-methPara$var[cpgIdx4Tau]))

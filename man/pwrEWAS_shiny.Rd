@@ -9,6 +9,9 @@ pwrEWAS_shiny()
 \description{
 pwrEWAS_shiny provides a user-friendly point-and-click interface for pwrEWAS
 }
+\examples{
+pwrEWAS_shiny()
+}
 \keyword{DNAm}
 \keyword{Shiny}
 \keyword{microarray}
