@@ -34,7 +34,7 @@ pwrEWAS_powerPlot <- function(data, sd = FALSE){
   for(j in 1:dim(data)[3]){
     U <- NULL
     L <- NULL
-    if(class(data[,,j]) == "matrix"){
+    if(is(data[,,j], "matrix")){
       dataSlice <- data[,,j]
     } else  dataSlice <- matrix(data[,,j])
     
