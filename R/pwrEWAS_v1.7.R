@@ -108,6 +108,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
   
   # combining function for foreach loops
   combine_tau <- function(listA, listB){
+    if(is.null(listA)) return(listB)
     if(!is(listA[["power"]], "array") & !is(listA[["power"]], "matrix")) listA[["power"]] <- matrix(listA[["power"]])
     if(!is(listB[["power"]], "array") & !is(listB[["power"]], "matrix")) listB[["power"]] <- matrix(listB[["power"]])
     if(!is(listA[["metric"]]$marTypeI, "array") & !is(listA[["metric"]]$marTypeI, "matrix")) listA[["metric"]]$marTypeI <- matrix(listA[["metric"]]$marTypeI)
@@ -134,6 +135,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
   }
   
   combine_totSampleSizes <- function(listA, listB){
+    if(is.null(listA)) return(listB)
     returnList <- list()
     returnList[["power"]] <- cbind(listA[["power"]], listB[["power"]])
     returnList[["delta"]] <- cbind(listA[["delta"]], listB[["delta"]])
