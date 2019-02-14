@@ -35,7 +35,7 @@
 #'                    detectionLimit = 0.01,
 #'                    DMmethod = "limma",
 #'                    FDRcritVal = 0.05,
-#'                    core = 4,
+#'                    core = 2,
 #'                    sims = 50)
 #'                    
 #' pwrEWAS(minTotSampleSize = 10,
@@ -49,7 +49,7 @@
 #'                    detectionLimit = 0.01,
 #'                    DMmethod = "limma",
 #'                    FDRcritVal = 0.05,
-#'                    core = 4,
+#'                    core = 2,
 #'                    sims = 50)
 pwrEWAS <- function(minTotSampleSize, # min total sample size
                     maxTotSampleSize, # max total sample size
