@@ -236,7 +236,7 @@ temp[[1]] = NULL
 pwrEWAS_deltaDensity(temp, detectionLimit = 0.01, sd = FALSE)
 ```
 
-![](pwrEWAS_deltaDensity_reduced.PNG)
+![](pwrEWAS_deltaDensity_reduced.png)
 
 
 \newpage
