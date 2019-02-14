@@ -23,7 +23,7 @@ output:
 
 <!--- https://bioconductor.org/packages/release/bioc/vignettes/PROPER/inst/doc/PROPER.pdf ---> 
 
-When designing an epigenome-wide association study (EWAS) to investigate the relationship between DNA methylation (DNAm) and some exposure(s) or phenotype(s), it is critically important to assess the sample size needed to detect a hypothesized difference with adequate statistical power. However, the complex and nuanced nature of DNAm data makes direct assessment of statistical power challenging. To circumvent these challenges and to address the outstanding need for a user-friendly interface for EWAS power evaluation, we have developed pwrEWAS. The current implementation of pwrEWAS accommodates power estimation for two-group comparisons of DNAm (e.g. case vs control, exposed vs non-exposed, etc.), where methylation assessment is carried out using the Illumina Human Methylation BeadChip technology. Power is calculated using a semi-parametric simulation-based approach in which DNAm data is randomly generated from beta-distributions using CpG-specific means and variances estimated from one of several different existing DNAm data sets, chosen to cover the most common tissue-types used in EWAS. In addition to specifying the tissue type to be used for DNAm profiling, users are required to specify the sample size, number of differentially methylated CpGs, effect size(s) ( ), target false discovery rate (FDR) and the number of simulated data sets, and have the option of selecting from several different statistical methods to perform differential methylation analyses. pwrEWAS reports the marginal power, marginal type I error rate, marginal FDR, and false discovery cost (FDC).
+When designing an epigenome-wide association study (EWAS) to investigate the relationship between DNA methylation (DNAm) and some exposure(s) or phenotype(s), it is critically important to assess the sample size needed to detect a hypothesized difference with adequate statistical power. However, the complex and nuanced nature of DNAm data makes direct assessment of statistical power challenging. To circumvent these challenges and to address the outstanding need for a user-friendly interface for EWAS power evaluation, we have developed pwrEWAS. The current implementation of pwrEWAS accommodates power estimation for two-group comparisons of DNAm (e.g. case vs control, exposed vs non-exposed, etc.), where methylation assessment is carried out using the Illumina Human Methylation BeadChip technology. Power is calculated using a semi-parametric simulation-based approach in which DNAm data is randomly generated from beta-distributions using CpG-specific means and variances estimated from one of several different existing DNAm data sets, chosen to cover the most common tissue-types used in EWAS. In addition to specifying the tissue type to be used for DNAm profiling, users are required to specify the sample size, number of differentially methylated CpGs, effect size(s), target false discovery rate (FDR) and the number of simulated data sets, and have the option of selecting from several different statistical methods to perform differential methylation analyses. pwrEWAS reports the marginal power, marginal type I error rate, marginal FDR, and false discovery cost (FDC).
 The R-Shiny web inter-face allows for easy input of user-defined parameters and includes an advanced settings button that offers additional options pertaining to data generation and computation. 
 
 
@@ -76,7 +76,7 @@ results_deltaSD = pwrEWAS(minTotSampleSize = 10,
 <!-- https://www.tablesgenerator.com/markdown_tables -->
 The following table provides a description of the input arguments:
 
-| Parameter | Decription |
+| Parameter | Description |
 |------------------|---------------------------------------------------------------------------------|
 | minTotSampleSize | Lowest total sample sizes to be considered |
 | maxTotSampleSize | Highest total sample sizes to be considered |
@@ -100,7 +100,7 @@ Running pwrEWAS will result in an object with the following four attributes: mea
 
 
 # Runtime
-In general, the computational complexity of pwrEWAS depends on four major components: (1) assumed number and magnitude of sample size(s), (2) number of target  's (effect sizes), (3) number of CpGs tested, and (4) number of simulated data sets. To enhance the computational efficiency, pwrEWAS allows users to process simulations in parallel. While (1) and (2) are usually dictated by the study to be conducted, (3) and (4) can be modified to either increase the precision of power estimates (increased run time) or reduce the computational burden (decreased precision of estimates). The following table provides the run time of pwrEWAS for different combinations of sample sizes and effect sizes. In all scenarios presented the number of tested CpGs was assumed to be 100,000, number of simulated data sets was 50, and the method to perform the differential methylation analysis as limma. A total of 6 clusters/threads were used.
+In general, the computational complexity of pwrEWAS depends on four major components: (1) assumed number and magnitude of sample size(s), (2) number of target $\Delta_\beta$'s (effect sizes), (3) number of CpGs tested, and (4) number of simulated data sets. To enhance the computational efficiency, pwrEWAS allows users to process simulations in parallel. While (1) and (2) are usually dictated by the study to be conducted, (3) and (4) can be modified to either increase the precision of power estimates (increased run time) or reduce the computational burden (decreased precision of estimates). The following table provides the run time of pwrEWAS for different combinations of sample sizes and effect sizes. In all scenarios presented the number of tested CpGs was assumed to be 100,000, number of simulated data sets was 50, and the method to perform the differential methylation analysis as limma. A total of 6 clusters/threads were used.
 
 | Total sample size \ Effect size $\Delta_\beta$ | 0.1         | 0.1, 0.2    | 0.1, 0.3, 0.5 |
 |------------------------------------------------|-------------|-------------|---------------|
@@ -115,7 +115,7 @@ In general, the computational complexity of pwrEWAS depends on four major compon
 
 ## Running pwrEWAS
 Running pwrEWAS by providing target maximal difference in methylation:
-```{r example running pwrEWAS targetDelta, warning=FALSE, message=FALSE, eval=TRUE, results="hide"}
+```{r example running pwrEWAS targetDelta, warning=FALSE, message=FALSE, eval=FALSE, results="hide"}
 library(pwrEWAS)
 set.seed(1234)
 results_targetDelta = pwrEWAS(minTotSampleSize = 20,
@@ -132,6 +132,11 @@ results_targetDelta = pwrEWAS(minTotSampleSize = 20,
                     core = 4,
                     sims = 50)
 
+```
+
+<!-- save(results_targetDelta, file = "vignette.Rdata") --> 
+```{r echo=FALSE, results='hide',message=FALSE}
+load("vignette_reduced.Rdata")
 ```
 
 Running pwrEWAS by providing standard deviation of difference in methylation:
@@ -153,8 +158,8 @@ results_deltaSD = pwrEWAS(minTotSampleSize = 20,
                     sims = 50)
 ```
 
-If pwrEWAS is excecuted with providing target maximal difference, first $\tau$ will be determined. The beginning and finish of this process will be printed with time stamps (see below for an example). If the standard deviation of difference is provided, this step will be skipped. \\
-Next, pwrEWAS will run the simulations to empirically estimate power. pwrEWAS will indicate when the simulations are started. To monitor the process pwrEWAS will display an process bar. pwrEWAS will print a statement including a time stamps once finished (see below for an example).
+If pwrEWAS is executed with providing target maximal difference, first $\tau$ will be determined. The beginning and finish of this process will be printed with time stamps (see below for an example). If the standard deviation of difference is provided, this step will be skipped. \\
+Next, pwrEWAS will run the simulations to empirically estimate power. pwrEWAS will indicate when the simulations are started. To monitor the process pwrEWAS will display a process bar. pwrEWAS will print a statement including a time stamps once finished (see below for an example).
 
 ```{r example running pwrEWAS targetDelta time stamps, warning=FALSE, message=FALSE, eval=TRUE,}
 ## [2019-02-12 18:40:23] Finding tau...done [2019-02-12 18:42:53]
@@ -167,8 +172,10 @@ Next, pwrEWAS will run the simulations to empirically estimate power. pwrEWAS wi
 
 ## Outputs 
 Running pwrEWAS will result in an object, that stores the following four attributes:
-```{r example results_targetDelta str, warning=FALSE, message=FALSE, eval=TRUE}
+```{r example results_targetDelta str, warning=FALSE, message=FALSE, eval=FALSE}
 attributes(results_targetDelta)
+## $names
+## [1] "meanPower" "powerArray" "deltaArray" "metric"
 ```
 
 ### meanPower 
@@ -179,7 +186,7 @@ print(results_targetDelta$meanPower)
 ```
 
 ### powerArray 
-The attribute ''powerArray'' should primarily be used to create a power plot, but can also be used to investigate the power results for the individual simulations. pwrEWAS includes a function ''pwrEWAS_powerPlot'' that will create a power plot, where power (y-axis) is shown as a function of sample sizes (x-axis) for different effect sizes (color coded). For each sample size, the mean power as well as the 95%tile interval (2.5% and 97.5%) is shown. ''sd'' should be set to ''FALSE'' if ''targetDelta'' was specified in pwrEWAS, and ''TRUE'' if ''deltaSD'' was specified in pwrEWAS.
+The attribute ''powerArray'' should primarily be used to create a power plot but can also be used to investigate the power results for the individual simulations. pwrEWAS includes a function ''pwrEWAS_powerPlot'' that will create a power plot, where power (y-axis) is shown as a function of sample sizes (x-axis) for different effect sizes (color coded). For each sample size, the mean power as well as the 95%tile interval (2.5% and 97.5%) is shown. ''sd'' should be set to ''FALSE'' if ''targetDelta'' was specified in pwrEWAS, and ''TRUE'' if ''deltaSD'' was specified in pwrEWAS.
 
 ```{r example power plot, warning=FALSE, message=FALSE, eval=TRUE}
 dim(results_targetDelta$powerArray) # simulations x sample sizes x effect sizes
@@ -189,29 +196,48 @@ pwrEWAS_powerPlot(results_targetDelta$powerArray, sd = FALSE)
 ### deltaArray 
 The third attribute ''deltaArray'' contains the simulated differences in mean DNAm. Each $\Delta_\beta$ is drawn from a truncated normal, where either the standard devation is provided (''deltaSD'') or automatically determined based on the user-specified target $\Delta_\beta$ (''targetDelta'') and the expected number of differentially methylated CpGs (''targetDmCpGs''). To automatically determined the standard devation, it is adjusted stepwise until the 99.99th percentile of the absolute value of simulated $\Delta_\beta$s falls within a range around the targeted maximal difference in DNAm (see paper for additional details). The maximal value of $\Delta_\beta$ can exceed the user-specified target $\Delta_\beta$, but about 99.99\% of simulated differences will be below user-specified target $\Delta_\beta$ (as seen below):
 
-```{r example max delta, warning=FALSE, message=FALSE, eval=TRUE}
+```{r example max delta, warning=FALSE, message=FALSE, eval=FALSE}
 # maximum value of simulated differences by target value
 lapply(results_targetDelta$deltaArray, max)
+## $`0.02`
+## [1] 0.02095302
+##
+## $`0.1`
+## [1] 0.1265494
+##
+## $`0.15`
+## [1] 0.2045638
+##
+## $`0.2`
+## [1] 0.2458416
 
 # percentage of simulated differences to be within the target range
-mean(results_targetDelta$deltaArray[[1]] < 0.02) 
-mean(results_targetDelta$deltaArray[[2]] < 0.10)
-mean(results_targetDelta$deltaArray[[3]] < 0.15)
-mean(results_targetDelta$deltaArray[[4]] < 0.20)
+mean(results _ targetDelta$deltaArray[[1]] < 0.02)
+## [1] 0.9999999
+mean(results _ targetDelta$deltaArray[[2]] < 0.10)
+## [1] 0.9998882
+mean(results _ targetDelta$deltaArray[[3]] < 0.15)
+## [1] 0.9999386
+mean(results _ targetDelta$deltaArray[[4]] < 0.20)
+## [1] 0.9999539
 ```
 
-To get a better understanding of how the differences in mean DNAm are distributed, pwrEWAS provides a density plot, where the distribution of siumlated differences in mean DNAm is plotted by target differences in DNAm ($\Delta_\beta$). The color theme matches the colors of the power plot. Simulated differences within the detection limit around zero are removed, as they are here not defined as meaningful differences. ''sd'' should be set to ''FALSE'' if ''targetDelta'' was specified in pwrEWAS, and ''TRUE'' if ''deltaSD'' was specified in pwrEWAS. 
+To get a better understanding of how the differences in mean DNAm are distributed, pwrEWAS provides a density plot, where the distribution of simulated differences in mean DNAm is plotted by target differences in DNAm ($\Delta_\beta$). The color theme matches the colors of the power plot. Simulated differences within the detection limit around zero are removed, as they are here not defined as meaningful differences. ''sd'' should be set to ''FALSE'' if ''targetDelta'' was specified in pwrEWAS, and ''TRUE'' if ''deltaSD'' was specified in pwrEWAS. 
 \newpage
-```{r example density plot, warning=FALSE, message=FALSE, eval=TRUE}
+```{r example density plot, warning=FALSE, message=FALSE, eval=FALSE}
 pwrEWAS_deltaDensity(results_targetDelta$deltaArray, detectionLimit = 0.01, sd = FALSE)
 ```
+![](pwrEWAS_deltaDensity.png)
 
 In the figure above, the densities are very compress, because the first effect size is clearly different from the other three. The following code will provide the figure after removing the first effect size:
-```{r example density plot w/o 0.02, warning=FALSE, message=FALSE, eval=TRUE}
+```{r example density plot w/o 0.02, warning=FALSE, message=FALSE, eval=FALSE}
 temp = results_targetDelta$deltaArray
 temp[[1]] = NULL
 pwrEWAS_deltaDensity(temp, detectionLimit = 0.01, sd = FALSE)
 ```
+
+![](pwrEWAS_deltaDensity_reduced.PNG)
+
 
 \newpage
 ### metric 
