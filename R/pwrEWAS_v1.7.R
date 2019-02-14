@@ -15,7 +15,7 @@
 #' @param DMmethod Method of Differential Methylation analysis: "limma" (default), "t-test (unequal var)", "t-test (equal var)", "Wilcox rank sum", "CPGassoc".
 #' @param FDRcritVal FDRcritVal (default: 0.05).
 #' @param core Number of threads for multi-threading (default: 1).
-#' @param sim Number of simulated data sets (default: 50).
+#' @param sims Number of simulated data sets (default: 50).
 #'
 #' @return pwrEWAS will return an object with the following four attributes: meanPower, powerArray, deltaArray, and metric, where metric contains marTypeI, classicalPower, FDR, and FDC
 #'

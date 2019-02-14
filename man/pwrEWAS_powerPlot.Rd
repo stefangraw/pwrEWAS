@@ -10,8 +10,6 @@ pwrEWAS_powerPlot(data, sd = FALSE)
 \item{data}{"powerArray" attribute within the pwrEWAS object create by pwrEWAS.}
 
 \item{sd}{FALSE if targetDelta was specified in pwrEWAS, and TRUE if deltaSD was specified in pwrEWAS.}
-
-\item{detectionLimit}{Detection limit specified in pwrEWAS.}
 }
 \description{
 pwrEWAS_powerPlot create a figure with power (with 95-percentile interval (2.5% & 97.5%)) as a funtion sample size for different effect sizes

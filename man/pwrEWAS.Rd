@@ -40,7 +40,7 @@ pwrEWAS(minTotSampleSize, maxTotSampleSize, SampleSizeSteps, NcntPer,
 
 \item{core}{Number of threads for multi-threading (default: 1).}
 
-\item{sim}{Number of simulated data sets (default: 50).}
+\item{sims}{Number of simulated data sets (default: 50).}
 }
 \value{
 pwrEWAS will return an object with the following four attributes: meanPower, powerArray, deltaArray, and metric, where metric contains marTypeI, classicalPower, FDR, and FDC
