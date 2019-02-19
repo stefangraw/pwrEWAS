@@ -50,32 +50,32 @@ pwrEWAS is a computationally efficient tool to estimate power in EWAS as a funct
 }
 \examples{
 pwrEWAS(minTotSampleSize = 10,
-                   maxTotSampleSize = 50,
+                   maxTotSampleSize = 20,
                    SampleSizeSteps = 10,
                    NcntPer = 0.5,
                    targetDelta = c(0.2, 0.5),
-                   J = 100000,
-                   targetDmCpGs = 100,
+                   J = 1000,
+                   targetDmCpGs = 10,
                    tissueType = "Adult (PBMC)",
                    detectionLimit = 0.01,
                    DMmethod = "limma",
                    FDRcritVal = 0.05,
                    core = 2,
-                   sims = 50)
+                   sims = 30)
                    
 pwrEWAS(minTotSampleSize = 10,
-                   maxTotSampleSize = 50,
+                   maxTotSampleSize = 20,
                    SampleSizeSteps = 10,
                    NcntPer = 0.5,
                    deltaSD = c(0.02, 0.03),
-                   J = 100000,
-                   targetDmCpGs = 100,
+                   J = 1000,
+                   targetDmCpGs = 10,
                    tissueType = "Adult (PBMC)",
                    detectionLimit = 0.01,
                    DMmethod = "limma",
                    FDRcritVal = 0.05,
                    core = 2,
-                   sims = 50)
+                   sims = 30)
 }
 \keyword{DNAm}
 \keyword{microarray}
