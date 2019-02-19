@@ -15,6 +15,6 @@ pwrEWAS_powerPlot(data, sd = FALSE)
 pwrEWAS_powerPlot create a figure with power (with 95-percentile interval (2.5% & 97.5%)) as a funtion sample size for different effect sizes
 }
 \examples{
-pwrEWAS_powerPlot(data = outDelta$powerArray, sd = FALSE)
-pwrEWAS_powerPlot(data = outSD$powerArray, sd = TRUE)
+# pwrEWAS_powerPlot(data = outDelta$powerArray, sd = FALSE)
+# pwrEWAS_powerPlot(data = outSD$powerArray, sd = TRUE)
 }
