@@ -8,7 +8,7 @@
 #' @export
 #' 
 #' @examples
-#' pwrEWAS_shiny()
+#' # pwrEWAS_shiny()
 
 
 pwrEWAS_shiny <- function(){
