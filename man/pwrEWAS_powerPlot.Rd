@@ -16,31 +16,31 @@ pwrEWAS_powerPlot create a figure with power (with 95-percentile interval (2.5% 
 }
 \examples{
 out = pwrEWAS(minTotSampleSize = 10,
-                   maxTotSampleSize = 20,
+                   maxTotSampleSize = 10,
                    SampleSizeSteps = 10,
                    NcntPer = 0.5,
-                   targetDelta = c(0.2, 0.5),
-                   J = 1000,
+                   targetDelta = 0.2,
+                   J = 100,
                    targetDmCpGs = 10,
                    tissueType = "Adult (PBMC)",
                    detectionLimit = 0.01,
                    DMmethod = "limma",
                    FDRcritVal = 0.05,
                    core = 2,
-                   sims = 30) 
+                   sims = 10) 
 pwrEWAS_powerPlot(data = out$powerArray, sd = FALSE)
 out = pwrEWAS(minTotSampleSize = 10,
-                   maxTotSampleSize = 20,
+                   maxTotSampleSize = 10,
                    SampleSizeSteps = 10,
                    NcntPer = 0.5,
-                   deltaSD = c(0.02, 0.03),
-                   J = 1000,
+                   deltaSD = 0.02,
+                   J = 100,
                    targetDmCpGs = 10,
                    tissueType = "Adult (PBMC)",
                    detectionLimit = 0.01,
                    DMmethod = "limma",
                    FDRcritVal = 0.05,
                    core = 2,
-                   sims = 30)
+                   sims = 10)
 pwrEWAS_powerPlot(data = out$powerArray, sd = TRUE)
 }
