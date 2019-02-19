@@ -49,12 +49,12 @@ pwrEWAS will return an object with the following four attributes: meanPower, pow
 pwrEWAS is a computationally efficient tool to estimate power in EWAS as a function of sample and effect size for two-group comparisons of DNAm (e.g., case vs control, exposed vs non-exposed, etc.). Detailed description of in-/outputs, instructions and an example, as well as interpretations of the example results are provided in the following vignette:
 }
 \examples{
-pwrEWAS(minTotSampleSize = 10,
+outDelta = pwrEWAS(minTotSampleSize = 10,
                    maxTotSampleSize = 20,
                    SampleSizeSteps = 10,
                    NcntPer = 0.5,
                    targetDelta = c(0.2, 0.5),
-                   J = 100,
+                   J = 1000,
                    targetDmCpGs = 10,
                    tissueType = "Adult (PBMC)",
                    detectionLimit = 0.01,
@@ -63,12 +63,12 @@ pwrEWAS(minTotSampleSize = 10,
                    core = 2,
                    sims = 30)
                    
-pwrEWAS(minTotSampleSize = 10,
+outSD = pwrEWAS(minTotSampleSize = 10,
                    maxTotSampleSize = 20,
                    SampleSizeSteps = 10,
                    NcntPer = 0.5,
                    deltaSD = c(0.02, 0.03),
-                   J = 100,
+                   J = 1000,
                    targetDmCpGs = 10,
                    tissueType = "Adult (PBMC)",
                    detectionLimit = 0.01,
