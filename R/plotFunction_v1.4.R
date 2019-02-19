@@ -8,7 +8,33 @@
 #' @export
 #' 
 #' @examples
+#' out = pwrEWAS(minTotSampleSize = 10,
+#'                    maxTotSampleSize = 20,
+#'                    SampleSizeSteps = 10,
+#'                    NcntPer = 0.5,
+#'                    targetDelta = c(0.2, 0.5),
+#'                    J = 1000,
+#'                    targetDmCpGs = 10,
+#'                    tissueType = "Adult (PBMC)",
+#'                    detectionLimit = 0.01,
+#'                    DMmethod = "limma",
+#'                    FDRcritVal = 0.05,
+#'                    core = 2,
+#'                    sims = 30) 
 #' pwrEWAS_powerPlot(data = out$powerArray, sd = FALSE)
+#' out = pwrEWAS(minTotSampleSize = 10,
+#'                    maxTotSampleSize = 20,
+#'                    SampleSizeSteps = 10,
+#'                    NcntPer = 0.5,
+#'                    deltaSD = c(0.02, 0.03),
+#'                    J = 1000,
+#'                    targetDmCpGs = 10,
+#'                    tissueType = "Adult (PBMC)",
+#'                    detectionLimit = 0.01,
+#'                    DMmethod = "limma",
+#'                    FDRcritVal = 0.05,
+#'                    core = 2,
+#'                    sims = 30)
 #' pwrEWAS_powerPlot(data = out$powerArray, sd = TRUE)
 pwrEWAS_powerPlot <- function(data, sd = FALSE){
   sampleSizes <- as.numeric(dimnames(data)[[2]])
@@ -87,7 +113,33 @@ gg_color_hue <- function(n) {
 #' @export
 #' 
 #' @examples
+#' out = pwrEWAS(minTotSampleSize = 10,
+#'                    maxTotSampleSize = 20,
+#'                    SampleSizeSteps = 10,
+#'                    NcntPer = 0.5,
+#'                    targetDelta = c(0.2, 0.5),
+#'                    J = 1000,
+#'                    targetDmCpGs = 10,
+#'                    tissueType = "Adult (PBMC)",
+#'                    detectionLimit = 0.01,
+#'                    DMmethod = "limma",
+#'                    FDRcritVal = 0.05,
+#'                    core = 2,
+#'                    sims = 30)
 #' pwrEWAS_deltaDensity(data = out$deltaArray, detectionLimit = 0.01, sd = FALSE)
+#' out = pwrEWAS(minTotSampleSize = 10,
+#'                    maxTotSampleSize = 20,
+#'                    SampleSizeSteps = 10,
+#'                    NcntPer = 0.5,
+#'                    deltaSD = c(0.02, 0.03),
+#'                    J = 1000,
+#'                    targetDmCpGs = 10,
+#'                    tissueType = "Adult (PBMC)",
+#'                    detectionLimit = 0.01,
+#'                    DMmethod = "limma",
+#'                    FDRcritVal = 0.05,
+#'                    core = 2,
+#'                    sims = 30)
 #' pwrEWAS_deltaDensity(data = out$deltaArray, detectionLimit = 0.01, sd = TRUE)
 pwrEWAS_deltaDensity <- function(data, detectionLimit = 0.01, sd = FALSE){
   maxDensY <- 0
