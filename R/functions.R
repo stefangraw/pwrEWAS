@@ -150,51 +150,51 @@ getK <- function(targetDmCpGs, methPara, detectionLimit, J, CpGonArray, tau){
 loadDataset <- function(tissueType){
   methPara <- NULL
   if(tissueType == "Saliva"){
-    repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/data/Saliva.rdata?raw=True")
+    repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Saliva.rdata?raw=True")
     methPara <- Saliva
   } else 
     if(tissueType == "Sperm"){
-      repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/data/Sperm.rdata?raw=True")
+      repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Sperm.rdata?raw=True")
       methPara <- Sperm
     } else 
       if(tissueType == "Lymphoma"){
-        repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/data/Lymphoma.rdata?raw=True")
+        repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Lymphoma.rdata?raw=True")
         methPara <- Lymphoma
       } else 
         if(tissueType == "Placenta"){
-          repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/data/Placenta.rdata?raw=True")
+          repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Placenta.rdata?raw=True")
           methPara <- Placenta
         } else 
           if(tissueType == "Liver"){
-            repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/data/Liver.rdata?raw=True")
+            repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Liver.rdata?raw=True")
             methPara <- Liver
           } else 
             if(tissueType == "Colon"){
-              repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/data/Colon.rdata?raw=True")
+              repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Colon.rdata?raw=True")
               methPara <- Colon
             } else 
               if(tissueType == "Blood adult"){
-                repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/data/Blood_adult.rdata?raw=True")
+                repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Blood_adult.rdata?raw=True")
                 methPara <- Blood_adult
               } else
                 if(tissueType == "Blood 5 year olds"){
-                  repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/data/Blood_5yrOlds.rdata?raw=True")
+                  repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Blood_5yrOlds.rdata?raw=True")
                   methPara <- Blood_5yrOlds
                 } else 
                   if(tissueType == "Blood newborns"){
-                    repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/data/BloodNewborns.rdata?raw=True")
+                    repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/BloodNewborns.rdata?raw=True")
                     methPara <- BloodNewborns
                   } else
                     if(tissueType == "Cord-blood (whole blood)"){
-                      repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/data/CordBlood_wholeBlood.rdata?raw=True")
+                      repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/CordBlood_wholeBlood.rdata?raw=True")
                       methPara <- CordBlood_wholeBlood
                     } else
                       if(tissueType == "Cord-blood (PBMC)"){
-                        repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/data/CordBlood_PBMC.rdata?raw=True")
+                        repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/CordBlood_PBMC.rdata?raw=True")
                         methPara <- CordBlood_PBMC
                       } else
                         if(tissueType == "Adult (PBMC)"){
-                          repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/data/Adult_PBMC.rdata?raw=True")
+                          repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Adult_PBMC.rdata?raw=True")
                           methPara <- Adult_PBMC
                         } else
                           stop("Tissue type not found")
