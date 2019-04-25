@@ -13,6 +13,9 @@ pwrEWAS_deltaDensity(data, detectionLimit = 0.01, sd = FALSE)
 
 \item{sd}{FALSE if targetDelta was specified in pwrEWAS, and TRUE if deltaSD was specified in pwrEWAS.}
 }
+\value{
+pwrEWAS_deltaDensity return a figure displaying densities of simulated differences in mean methylation different effect sizes
+}
 \description{
 pwrEWAS_deltaDensity create a density plot of the simulated differences in mean methylation for different effect sizes
 }

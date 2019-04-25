@@ -5,6 +5,8 @@
 #' 
 #' @keywords DNAm microarray power Shiny
 #' 
+#' @return pwrEWAS_shiny initializes pwrEWAS's user-interface
+#' 
 #' @export
 #' 
 #' @examples

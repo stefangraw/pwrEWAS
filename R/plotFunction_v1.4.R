@@ -5,6 +5,8 @@
 #' @param data "powerArray" attribute within the pwrEWAS object create by pwrEWAS.
 #' @param sd FALSE if targetDelta was specified in pwrEWAS, and TRUE if deltaSD was specified in pwrEWAS.
 #'  
+#' @return pwrEWAS_powerPlot return a figure displaying power as a funtion sample size for different effect sizes
+#' 
 #' @export
 #' 
 #' @examples
@@ -109,6 +111,9 @@ gg_color_hue <- function(n) {
 #' @param data "deltaArray" attribute within the pwrEWAS object create by pwrEWAS
 #' @param detectionLimit Detection limit specified in pwrEWAS.
 #' @param sd FALSE if targetDelta was specified in pwrEWAS, and TRUE if deltaSD was specified in pwrEWAS.
+#'
+#' @return pwrEWAS_deltaDensity return a figure displaying densities of simulated differences in mean methylation different effect sizes
+
 #'
 #' @export
 #' 

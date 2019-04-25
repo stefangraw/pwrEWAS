@@ -6,6 +6,9 @@
 \usage{
 pwrEWAS_shiny()
 }
+\value{
+pwrEWAS_shiny initializes pwrEWAS's user-interface
+}
 \description{
 pwrEWAS_shiny provides a user-friendly point-and-click interface for pwrEWAS
 }
