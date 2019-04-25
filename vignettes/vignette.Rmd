@@ -29,9 +29,10 @@ The R-Shiny web inter-face allows for easy input of user-defined parameters and 
 
 ## Installation
 pwrEWAS can be installed from guthub with the following R code:
-```{r install, warning=FALSE, message=FALSE, eval=TRUE}
-devtools::install_github("stefangraw/pwrEWAS")
-library(pwrEWAS)
+```{r install, warning=FALSE, message=FALSE, eval=FALSE}
+if (!requireNamespace("BiocManager"))
+    install.packages("BiocManager")
+BiocManager::install("pwrEWAS")
 ```
 
 \newpage
