@@ -113,7 +113,6 @@ gg_color_hue <- function(n) {
 #' @param sd FALSE if targetDelta was specified in pwrEWAS, and TRUE if deltaSD was specified in pwrEWAS.
 #'
 #' @return pwrEWAS_deltaDensity return a figure displaying densities of simulated differences in mean methylation different effect sizes
-
 #'
 #' @export
 #' 
