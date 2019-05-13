@@ -46,7 +46,7 @@ pwrEWAS(minTotSampleSize, maxTotSampleSize, SampleSizeSteps, NcntPer,
 pwrEWAS will return an object with the following four attributes: meanPower, powerArray, deltaArray, and metric, where metric contains marTypeI, classicalPower, FDR, and FDC
 }
 \description{
-pwrEWAS is a computationally efficient tool to estimate power in EWAS as a function of sample and effect size for two-group comparisons of DNAm (e.g., case vs control, exposed vs non-exposed, etc.). Detailed description of in-/outputs, instructions and an example, as well as interpretations of the example results are provided in the following vignette:
+pwrEWAS is a computationally efficient tool to estimate power in EWAS as a function of sample and effect size for two-group comparisons of DNAm (e.g., case vs control, exposed vs non-exposed, etc.). Detailed description of in-/outputs, instructions and an example, as well as interpretations of the example results are provided in the following vignette: https://github.com/stefangraw/pwrEWAS/blob/master/vignettes/vignette.pdf
 }
 \examples{
 outDelta = pwrEWAS(minTotSampleSize = 10,

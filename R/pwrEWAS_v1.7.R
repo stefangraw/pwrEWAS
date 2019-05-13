@@ -1,6 +1,6 @@
 #' @title pwrEWAS - A computationally efficient tool for compre-hensive power estimation in EWAS
 #'
-#' @description pwrEWAS is a computationally efficient tool to estimate power in EWAS as a function of sample and effect size for two-group comparisons of DNAm (e.g., case vs control, exposed vs non-exposed, etc.). Detailed description of in-/outputs, instructions and an example, as well as interpretations of the example results are provided in the following vignette:
+#' @description pwrEWAS is a computationally efficient tool to estimate power in EWAS as a function of sample and effect size for two-group comparisons of DNAm (e.g., case vs control, exposed vs non-exposed, etc.). Detailed description of in-/outputs, instructions and an example, as well as interpretations of the example results are provided in the following vignette: https://github.com/stefangraw/pwrEWAS/blob/master/vignettes/vignette.pdf
 #' 
 #' @param minTotSampleSize Minimum total sample size.
 #' @param maxTotSampleSize Maximum total sample size.
