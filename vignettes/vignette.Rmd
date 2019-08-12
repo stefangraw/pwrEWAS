@@ -42,7 +42,7 @@ library("pwrEWAS")
 # Usage
 To execute the main pwrEWAS function the following to codes can be used. pwrEWAS allows the user to specify the effect size in one of two ways, by either providing a target maximal difference in methylation ("targetDelta"), or by providing the standard deviation of the simulated differnces ("deltaSD"). Only one of both arguments can be provided. If "targetDelta" is specified, pwrEWAS will automatically identify a standard deviation to simulate differences in methylation, such that the 99.99th percentile of the absolute value of simulated differences falls within a range around the targeted maximal difference in DNAm (see paper for additional details). If "deltaSD" is specified, pwrEWAS will simulate differences in methylation using the provided standard deviation (additional information provided in paper).
 
-```{r usage, warning=FALSE, message=FALSE, eval=FALSE}
+```{r usage, warning=FALSE, message=FALSE, eval=TRUE, results="hide"}
 # providing the targeted maximal difference in DNAm
 results_targetDelta = pwrEWAS(minTotSampleSize = 10,
                     maxTotSampleSize = 50,
@@ -118,7 +118,7 @@ In general, the computational complexity of pwrEWAS depends on four major compon
 # Example
 
 ## Running pwrEWAS
-Running pwrEWAS by providing target maximal difference in methylation:
+Running pwrEWAS by providing target maximal difference in methylation or by providing standard deviation of difference in methylation:
 ```{r example running pwrEWAS targetDelta, warning=FALSE, message=FALSE, eval=FALSE, results="hide"}
 library(pwrEWAS)
 set.seed(1234)
@@ -136,17 +136,6 @@ results_targetDelta = pwrEWAS(minTotSampleSize = 20,
                     core = 4,
                     sims = 50)
 
-```
-
-<!-- save(results_targetDelta, file = "vignette.Rdata") --> 
-```{r echo=FALSE, results='hide',message=FALSE}
-load("vignette_reduced.Rdata")
-```
-
-Running pwrEWAS by providing standard deviation of difference in methylation:
-```{r example running pwrEWAS deltaSD, warning=FALSE, message=FALSE, eval=FALSE, results="hide"}
-library(pwrEWAS)
-set.seed(1234)
 results_deltaSD = pwrEWAS(minTotSampleSize = 20,
                     maxTotSampleSize = 260, 
                     SampleSizeSteps = 40,
@@ -160,12 +149,19 @@ results_deltaSD = pwrEWAS(minTotSampleSize = 20,
                     FDRcritVal = 0.05,
                     core = 4,
                     sims = 50)
+
 ```
+
+<!-- save(results_targetDelta, file = "vignette.Rdata") --> 
+```{r echo=FALSE, results='hide',message=FALSE}
+load("vignette_reduced.Rdata")
+```
+
 
 If pwrEWAS is executed with providing target maximal difference, first $\tau$ will be determined. The beginning and finish of this process will be printed with time stamps (see below for an example). If the standard deviation of difference is provided, this step will be skipped. \\
 Next, pwrEWAS will run the simulations to empirically estimate power. pwrEWAS will indicate when the simulations are started. To monitor the process pwrEWAS will display a process bar. pwrEWAS will print a statement including a time stamps once finished (see below for an example).
 
-```{r example running pwrEWAS targetDelta time stamps, warning=FALSE, message=FALSE, eval=TRUE,}
+```{r example running pwrEWAS targetDelta time stamps, warning=FALSE, message=FALSE, eval=TRUE}
 ## [2019-02-12 18:40:23] Finding tau...done [2019-02-12 18:42:53]
 ## [1] "The following taus were chosen: 0.00390625, 0.02734375, 0.0390625, 0.052734375"
 ## [2019-02-12 18:42:53] Running simulation
@@ -176,7 +172,7 @@ Next, pwrEWAS will run the simulations to empirically estimate power. pwrEWAS wi
 
 ## Outputs 
 Running pwrEWAS will result in an object, that stores the following four attributes:
-```{r example results_targetDelta str, warning=FALSE, message=FALSE, eval=FALSE}
+```{r example results_targetDelta str, warning=FALSE, message=FALSE, eval=TRUE}
 attributes(results_targetDelta)
 ## $names
 ## [1] "meanPower" "powerArray" "deltaArray" "metric"
