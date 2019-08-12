@@ -131,55 +131,46 @@ getK <- function(targetDmCpGs, methPara, detectionLimit, J, CpGonArray, tau){
 
 
 loadDataset <- function(tissueType){
+  BiocManager::install(version='devel', update = TRUE, ask = FALSE)
+  BiocManager::install("ExperimentHub", update = TRUE, ask = FALSE)
+  
   methPara <- NULL
   if(tissueType == "Saliva"){
-    repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Saliva.rdata?raw=True")
-    methPara <- Saliva
+    methPara <- ExperimentHub::ExperimentHub()[["EH3068"]]
   } else 
-    if(tissueType == "Sperm"){
-      repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Sperm.rdata?raw=True")
-      methPara <- Sperm
+    if(tissueType == "Lymphoma"){
+      methPara <- ExperimentHub::ExperimentHub()[["EH3069"]]
     } else 
-      if(tissueType == "Lymphoma"){
-        repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Lymphoma.rdata?raw=True")
-        methPara <- Lymphoma
+      if(tissueType == "Placenta"){
+        methPara <- ExperimentHub::ExperimentHub()[["EH3070"]]
       } else 
-        if(tissueType == "Placenta"){
-          repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Placenta.rdata?raw=True")
-          methPara <- Placenta
+        if(tissueType == "Liver"){
+          methPara <- ExperimentHub::ExperimentHub()[["EH3071"]]
         } else 
-          if(tissueType == "Liver"){
-            repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Liver.rdata?raw=True")
-            methPara <- Liver
+          if(tissueType == "Colon"){
+            methPara <- ExperimentHub::ExperimentHub()[["EH3072"]]
           } else 
-            if(tissueType == "Colon"){
-              repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Colon.rdata?raw=True")
-              methPara <- Colon
-            } else 
-              if(tissueType == "Blood adult"){
-                repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Blood_adult.rdata?raw=True")
-                methPara <- Blood_adult
-              } else
-                if(tissueType == "Blood 5 year olds"){
-                  repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Blood_5yrOlds.rdata?raw=True")
-                  methPara <- Blood_5yrOlds
-                } else 
-                  if(tissueType == "Blood newborns"){
-                    repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/BloodNewborns.rdata?raw=True")
-                    methPara <- BloodNewborns
+            if(tissueType == "Blood adult"){
+              methPara <- ExperimentHub::ExperimentHub()[["EH3073"]]
+            } else
+              if(tissueType == "Blood 5 year olds"){
+                methPara <- ExperimentHub::ExperimentHub()[["EH3074"]]
+              } else 
+                if(tissueType == "Blood newborns"){
+                  methPara <- ExperimentHub::ExperimentHub()[["EH3075"]]
+                } else
+                  if(tissueType == "Cord-blood (whole blood)"){
+                    methPara <- ExperimentHub::ExperimentHub()[["EH3076"]]
                   } else
-                    if(tissueType == "Cord-blood (whole blood)"){
-                      repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/CordBlood_wholeBlood.rdata?raw=True")
-                      methPara <- CordBlood_wholeBlood
+                    if(tissueType == "Cord-blood (PBMC)"){
+                      methPara <- ExperimentHub::ExperimentHub()[["EH3077"]]
                     } else
-                      if(tissueType == "Cord-blood (PBMC)"){
-                        repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/CordBlood_PBMC.rdata?raw=True")
-                        methPara <- CordBlood_PBMC
+                      if(tissueType == "Adult (PBMC)"){
+                        methPara <- ExperimentHub::ExperimentHub()[["EH3078"]]
                       } else
-                        if(tissueType == "Adult (PBMC)"){
-                          repmis::source_data("https://github.com/stefangraw/pwrEWAS_data/blob/master/Adult_PBMC.rdata?raw=True")
-                          methPara <- Adult_PBMC
+                        if(tissueType == "Sperm"){
+                          methPara <- ExperimentHub::ExperimentHub()[["EH3079"]]
                         } else
                           stop("Tissue type not found")
-                        return(methPara)
+  return(methPara)
 }
