@@ -1,6 +1,6 @@
 Package: pwrEWAS
 Title: A user-friendly tool for comprehensive power estimation for epigenome wide association studies (EWAS) 
-Version: 0.99.38
+Version: 0.99.39
 Description: pwrEWAS is a user-friendly tool to assists researchers in the design and planning of EWAS to help circumvent under- and overpowered studies.
 Author: Stefan Graw
 Maintainer: Stefan Graw <shgraw@uams.edu>
