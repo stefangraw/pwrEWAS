@@ -95,7 +95,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
   if(!is.null(targetDelta) & !is.null(deltaSD)) stop("Please specify only one: 'targetDelta' or 'deltaSD'")
   
   #load data
-  methPara <- loadDataset(tissueType)
+  methPara <- pwrEWAS.data::loadDataset(tissueType)
   CpGonArray <- length(methPara$mu)
   
   output <- NULL
