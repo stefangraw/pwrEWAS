@@ -59,14 +59,14 @@ pwrEWAS_powerPlot <- function(data, sd = FALSE){
   
   
   
-  for(j in 1:dim(data)[3]){
+  for(j in seq_len(dim(data)[3])){
     U <- NULL
     L <- NULL
     if(is(data[,,j], "matrix")){
       dataSlice <- data[,,j]
     } else  dataSlice <- matrix(data[,,j])
     
-    for(i in 1:dim(dataSlice)[2]){
+    for(i in seq_len(dim(dataSlice)[2])){
       L[i] <- quantile(dataSlice[,i], 0.025, na.rm = TRUE)
       U[i] <- quantile(dataSlice[,i], 0.975, na.rm = TRUE)
     }
@@ -101,7 +101,7 @@ pwrEWAS_powerPlot <- function(data, sd = FALSE){
 
 gg_color_hue <- function(n) {
   hues <- seq(15, 375, length = n + 1)
-  hcl(h = hues, l = 65, c = 100)[1:n]
+  hcl(h = hues, l = 65, c = 100)[seq_len(n)]
 }
 
 #' @title Density plot for simulated differences in mean methylation
@@ -148,7 +148,7 @@ gg_color_hue <- function(n) {
 pwrEWAS_deltaDensity <- function(data, detectionLimit = 0.01, sd = FALSE){
   maxDensY <- 0
   maxDensX <- 0
-  for(d in 1:length(data)){
+  for(d in seq_len(length(data))){
     dens <- density(data[[d]][abs(data[[d]])>detectionLimit]) ## XXXXX need common bandwidth
     maxDensY <- max(c(maxDensY, max(dens$y)))
     maxDensX <- max(c(maxDensX, max(abs(dens$x))))
@@ -156,7 +156,7 @@ pwrEWAS_deltaDensity <- function(data, detectionLimit = 0.01, sd = FALSE){
   plot(density(data[[1]]), col = "white", ylim = c(0,maxDensY), xlim = c(max(-1,-1.1*maxDensX), min(1,1.1*maxDensX)),
        main = "", xlab = expression(Delta[beta]), cex.axis = 1.5, cex.lab = 1.5)
   myLineWd <- 2.5
-  for(d in 1:length(data)){
+  for(d in seq_len(length(data))){
     lines(density(data[[d]][abs(data[[d]])>detectionLimit], from = detectionLimit), col = gg_color_hue(length(data))[d], lwd = myLineWd)
     lines(density(data[[d]][abs(data[[d]])>detectionLimit], to = -detectionLimit), col = gg_color_hue(length(data))[d], lwd = myLineWd)
   }

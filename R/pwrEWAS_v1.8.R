@@ -153,7 +153,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
     cat(paste("[",Sys.time(),"] ", "Finding tau...", sep = ""))
     K <- NULL 
     tau <- NULL
-    for(d in 1:length(targetDelta)){
+    for(d in seq_along(targetDelta)){
       myTau <- getTau(targetDmCpGs, targetDelta[d], methPara, detectionLimit, J, CpGonArray)
       tau[d] <- myTau$tau
       K[d] <- myTau$K # number of changed CpGs
@@ -163,7 +163,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
   } else {
     tau <- deltaSD 
     K <- NULL
-    for(d in 1:length(tau)){
+    for(d in seq_along(tau)){
       K[d] <- getK(targetDmCpGs, methPara, detectionLimit, J, CpGonArray, tau)
     }
   }
@@ -177,7 +177,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
   pb <- txtProgressBar(max = iterations, style = 3)
   progress <- function(n) setTxtProgressBar(pb, n)
   opts <- list(progress = progress)
-  multiThreadOut <- foreach(d = 1:length(tau), 
+  multiThreadOut <- foreach(d = seq_along(tau), 
                             .combine = combine_tau,
                             .packages=c("truncnorm", "limma", "CpGassoc", "genefilter"),
                             .export = c("getAlphBet", "getMeanVar", "beta2Mvalue", "limma", "ttestSlow", "ttestFast", "Wilcox", "CPGassoc")) %:%
@@ -196,11 +196,11 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
       FDC <- NULL
       probTP <- NULL
       
-      for(sim in 1:sims){
+      for(sim in seq_len(sims)){
         
         ## sample CpGs
-        cpgIdx <- sample(x = 1:CpGonArray, size = J, replace = TRUE) # pick J random CpG's to be simulated
-        cpgIdxName <- paste(1:J, "_", rownames(methPara)[cpgIdx], sep = "") # ensuring unique CpG name (allowing unique sampling with replacement)
+        cpgIdx <- sample(x = seq_len(CpGonArray), size = J, replace = TRUE) # pick J random CpG's to be simulated
+        cpgIdxName <- paste(seq_len(J), "_", rownames(methPara)[cpgIdx], sep = "") # ensuring unique CpG name (allowing unique sampling with replacement)
         changedCpgsIdx <- sample(x = cpgIdx, size = K[d]) # pick K random CpG's to be changed in mean meth
         changedCpgsIdxName <- cpgIdxName[match(changedCpgsIdx, cpgIdx)]
         
@@ -235,7 +235,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
         g2Beta[g2Beta == 1] <- max(g2Beta[g2Beta != 1])
         g1Beta[g1Beta == 0] <- min(g1Beta[g1Beta != 0])
         g2Beta[g2Beta == 0] <- min(g2Beta[g2Beta != 0])
-        rownames(g1Beta) <- rownames(g2Beta) <- paste(1:J,"_",names(alpha_unchanged),sep = "")
+        rownames(g1Beta) <- rownames(g2Beta) <- paste(seq_len(J),"_",names(alpha_unchanged),sep = "")
         
         # Tests 
         ## t-test slow (unequal var)
@@ -316,7 +316,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
   if(length(targetDelta) == 1) output$powerArray <- array(data = multiThreadOut[["power"]], dim = c(sims, length(totSampleSizes), length(targetDelta)))
   if(length(targetDelta) > 1 & length(totSampleSizes) == 1) output$powerArray <- multiThreadOut[["power"]]
   if(length(targetDelta) > 1) output$powerArray <- multiThreadOut[["power"]]
-  dimnames(output$powerArray) <- list(1:sims, totSampleSizes, targetDelta)  
+  dimnames(output$powerArray) <- list(seq_len(sims), totSampleSizes, targetDelta)  
   
   # deltaArray
   if(length(targetDelta) == 1 & length(totSampleSizes) == 1)  output$deltaArray <- list(matrix(multiThreadOut[["delta"]]))
@@ -324,7 +324,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
   if(length(targetDelta) > 1 & length(totSampleSizes) == 1)   output$deltaArray <- lapply(multiThreadOut[["delta"]],as.matrix)
   if(length(targetDelta) > 1 & length(totSampleSizes) > 1)    output$deltaArray <- multiThreadOut[["delta"]]
   names(output$deltaArray) <- targetDelta
-  for(d in 1:length(targetDelta)){
+  for(d in seq_along(targetDelta)){
     colnames(output$deltaArray[[d]]) <- totSampleSizes
   }
   
