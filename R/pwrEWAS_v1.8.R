@@ -77,18 +77,6 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
                     core = 1, # number of cores to multi thread
                     sims = 50
 ){
-  # library(doParallel)
-  # library(abind)
-  # library(foreach)
-  
-  # # install non CRAN packages
-  # if (!require("limma")){
-  #   BiocManager::install("limma", version = "3.8", ask = FALSE)
-  # }
-  # if (!require("genefilter")){
-  #   BiocManager::install("genefilter", version = "3.8", ask = FALSE)
-  # }
-  
   tissueType <- match.arg(tissueType)
   DMmethod <- match.arg(DMmethod)
   
@@ -177,6 +165,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
   pb <- utils::txtProgressBar(max = iterations, style = 3)
   progress <- function(n) utils::setTxtProgressBar(pb, n)
   opts <- list(progress = progress)
+  Ntot <- NULL
   multiThreadOut <- foreach(d = seq_along(tau), 
                             .combine = combine_tau,
                             .packages=c("truncnorm", "limma", "CpGassoc", "genefilter"),

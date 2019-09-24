@@ -41,6 +41,8 @@
 pwrEWAS_powerPlot <- function(data, sd = FALSE){
   sampleSizes <- as.numeric(dimnames(data)[[2]])
   deltas <- dimnames(data)[[3]]
+  x <- NULL
+  y <- NULL
   
   df <- data.frame(x = sampleSizes, y = colMeans(matrix(data[,,1])))
   p <- ggplot2::ggplot(df, ggplot2::aes(x = x, y = y)) + 
