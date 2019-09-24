@@ -62,13 +62,13 @@ pwrEWAS_powerPlot <- function(data, sd = FALSE){
   for(j in seq_len(dim(data)[3])){
     U <- NULL
     L <- NULL
-    if(is(data[,,j], "matrix")){
+    if(methods::is(data[,,j], "matrix")){
       dataSlice <- data[,,j]
     } else  dataSlice <- matrix(data[,,j])
     
     for(i in seq_len(dim(dataSlice)[2])){
-      L[i] <- quantile(dataSlice[,i], 0.025, na.rm = TRUE)
-      U[i] <- quantile(dataSlice[,i], 0.975, na.rm = TRUE)
+      L[i] <- stats::quantile(dataSlice[,i], 0.025, na.rm = TRUE)
+      U[i] <- stats::quantile(dataSlice[,i], 0.975, na.rm = TRUE)
     }
     
     dftemp[[j]] <- data.frame(x = sampleSizes, y = colMeans(dataSlice) , 
@@ -101,7 +101,7 @@ pwrEWAS_powerPlot <- function(data, sd = FALSE){
 
 gg_color_hue <- function(n) {
   hues <- seq(15, 375, length = n + 1)
-  hcl(h = hues, l = 65, c = 100)[seq_len(n)]
+  grDevices::hcl(h = hues, l = 65, c = 100)[seq_len(n)]
 }
 
 #' @title Density plot for simulated differences in mean methylation
@@ -149,21 +149,21 @@ pwrEWAS_deltaDensity <- function(data, detectionLimit = 0.01, sd = FALSE){
   maxDensY <- 0
   maxDensX <- 0
   for(d in seq_len(length(data))){
-    dens <- density(data[[d]][abs(data[[d]])>detectionLimit]) ## XXXXX need common bandwidth
+    dens <- stats::density(data[[d]][abs(data[[d]])>detectionLimit]) ## XXXXX need common bandwidth
     maxDensY <- max(c(maxDensY, max(dens$y)))
     maxDensX <- max(c(maxDensX, max(abs(dens$x))))
   }
-  plot(density(data[[1]]), col = "white", ylim = c(0,maxDensY), xlim = c(max(-1,-1.1*maxDensX), min(1,1.1*maxDensX)),
+  plot(stats::density(data[[1]]), col = "white", ylim = c(0,maxDensY), xlim = c(max(-1,-1.1*maxDensX), min(1,1.1*maxDensX)),
        main = "", xlab = expression(Delta[beta]), cex.axis = 1.5, cex.lab = 1.5)
   myLineWd <- 2.5
   for(d in seq_len(length(data))){
-    lines(density(data[[d]][abs(data[[d]])>detectionLimit], from = detectionLimit), col = gg_color_hue(length(data))[d], lwd = myLineWd)
-    lines(density(data[[d]][abs(data[[d]])>detectionLimit], to = -detectionLimit), col = gg_color_hue(length(data))[d], lwd = myLineWd)
+    graphics::lines(stats::density(data[[d]][abs(data[[d]])>detectionLimit], from = detectionLimit), col = gg_color_hue(length(data))[d], lwd = myLineWd)
+    graphics::lines(stats::density(data[[d]][abs(data[[d]])>detectionLimit], to = -detectionLimit), col = gg_color_hue(length(data))[d], lwd = myLineWd)
   }
-  abline(v = c(-detectionLimit, detectionLimit), lty = 3)
+  graphics::abline(v = c(-detectionLimit, detectionLimit), lty = 3)
   if(sd){
-    legend("topright", names(data), col = gg_color_hue(length(data)), lty = 1, lwd = myLineWd, title = expression(paste("sd(",Delta[beta],")",sep = "")), cex = 1.5)
-  } else legend("topright", names(data), col = gg_color_hue(length(data)), lty = 1, lwd = myLineWd, title = expression(Delta[beta]), cex = 1.5)
+    graphics::legend("topright", names(data), col = gg_color_hue(length(data)), lty = 1, lwd = myLineWd, title = expression(paste("sd(",Delta[beta],")",sep = "")), cex = 1.5)
+  } else graphics::legend("topright", names(data), col = gg_color_hue(length(data)), lty = 1, lwd = myLineWd, title = expression(Delta[beta]), cex = 1.5)
   
 }
 

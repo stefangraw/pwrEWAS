@@ -21,10 +21,10 @@ beta2Mvalue <- function(beta){ # beta to m-value
 # t-test uses UNequal variance
 ttestSlow <- function(g1Beta,g2Beta,rCnt,rTx,paired){
   mvals <- cbind(beta2Mvalue(g1Beta), beta2Mvalue(g2Beta))
-  ttest <- apply(mvals,1,  function (x) t.test(x[seq_len(rCnt)], x[(rCnt+1):(rCnt+rTx)], paired = FALSE, var.equal = TRUE))
+  ttest <- apply(mvals,1,  function (x) stats::t.test(x[seq_len(rCnt)], x[(rCnt+1):(rCnt+rTx)], paired = FALSE, var.equal = TRUE))
   temp <- NULL
   temp$pval <- unlist(lapply(ttest, function(x) x$p.value))
-  temp$fdr <- p.adjust(temp$pval, method = "fdr")
+  temp$fdr <- stats::p.adjust(temp$pval, method = "fdr")
   return(temp)
 }
 
@@ -35,7 +35,7 @@ ttestFast <- function(g1Beta,g2Beta,rCnt,rTx){
   ttest <- genefilter::rowttests(mvals, fac = factor(c(rep("g1",rCnt),rep("g2",rTx))), tstatOnly = FALSE)  # faster: tstatOnly = T
   temp <- NULL
   temp$pval <- ttest$p.value
-  temp$fdr <- p.adjust(temp$pval, method = "fdr")
+  temp$fdr <- stats::p.adjust(temp$pval, method = "fdr")
   return(temp)
 }
 
@@ -43,21 +43,21 @@ ttestFast <- function(g1Beta,g2Beta,rCnt,rTx){
 # Wilcox rank sum test
 Wilcox <- function(g1Beta, g2Beta, rCnt,rTx){
   mvals <- cbind(beta2Mvalue(g1Beta), beta2Mvalue(g2Beta))
-  WRS <- apply(mvals,1,  function (x) wilcox.test(x[seq_len(rCnt)] - x[(rCnt+1):(rCnt+rTx)], correct=TRUE))
+  WRS <- apply(mvals,1,  function (x) stats::wilcox.test(x[seq_len(rCnt)] - x[(rCnt+1):(rCnt+rTx)], correct=TRUE))
   temp <- NULL
   temp$pval <- unlist(lapply(WRS, function(x) x$p.value))
-  temp$fdr <- p.adjust(temp$pval, method = "fdr")
+  temp$fdr <- stats::p.adjust(temp$pval, method = "fdr")
   return(temp)
 }
 
 # limma
 limma <- function(g1Beta, g2Beta, rCnt,rTx){
   mvals <- cbind(beta2Mvalue(g1Beta), beta2Mvalue(g2Beta))
-  design <- model.matrix(~ c(rep("g1",rCnt),rep("g2",rTx)))
+  design <- stats::model.matrix(~ c(rep("g1",rCnt),rep("g2",rTx)))
   limmaFit <- limma::lmFit(mvals, design)
   temp <- NULL
   temp$pval <- eBayes(limmaFit)$p.value[,2]
-  temp$fdr <- p.adjust(temp$pval, method = "fdr")
+  temp$fdr <- stats::p.adjust(temp$pval, method = "fdr")
   return(temp)
 }
 
@@ -89,7 +89,7 @@ getTau <- function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGon
                                      a=0.5 - methPara$mu[cpgIdx4Tau] - sqrt(0.25-methPara$var[cpgIdx4Tau]), 
                                      b=0.5 - methPara$mu[cpgIdx4Tau] + sqrt(0.25-methPara$var[cpgIdx4Tau]))
       # 99.999% percentile 
-      percentile[i] <- quantile(abs(delta),0.9999)
+      percentile[i] <- stats::quantile(abs(delta),0.9999)
     }
     
     # next tau step

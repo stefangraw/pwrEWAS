@@ -109,19 +109,19 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
   # combining function for foreach loops
   combine_tau <- function(listA, listB){
     if(is.null(listA)) return(listB)
-    if(!is(listA[["power"]], "array") & !is(listA[["power"]], "matrix")) listA[["power"]] <- matrix(listA[["power"]])
-    if(!is(listB[["power"]], "array") & !is(listB[["power"]], "matrix")) listB[["power"]] <- matrix(listB[["power"]])
-    if(!is(listA[["metric"]]$marTypeI, "array") & !is(listA[["metric"]]$marTypeI, "matrix")) listA[["metric"]]$marTypeI <- matrix(listA[["metric"]]$marTypeI)
-    if(!is(listB[["metric"]]$marTypeI, "array") & !is(listB[["metric"]]$marTypeI, "matrix")) listB[["metric"]]$marTypeI <- matrix(listB[["metric"]]$marTypeI)
-    if(!is(listA[["metric"]]$classicalPower, "array") & !is(listA[["metric"]]$classicalPower, "matrix")) listA[["metric"]]$classicalPower <- matrix(listA[["metric"]]$classicalPower)
-    if(!is(listB[["metric"]]$classicalPower, "array") & !is(listB[["metric"]]$classicalPower, "matrix")) listB[["metric"]]$classicalPower <- matrix(listB[["metric"]]$classicalPower)
-    if(!is(listA[["metric"]]$FDR, "array") & !is(listA[["metric"]]$FDR, "matrix")) listA[["metric"]]$FDR <- matrix(listA[["metric"]]$FDR)
-    if(!is(listB[["metric"]]$FDR, "array") & !is(listB[["metric"]]$FDR, "matrix")) listB[["metric"]]$FDR <- matrix(listB[["metric"]]$FDR)
-    if(!is(listA[["metric"]]$FDC, "array") & !is(listA[["metric"]]$FDC, "matrix")) listA[["metric"]]$FDC <- matrix(listA[["metric"]]$FDC)
-    if(!is(listB[["metric"]]$FDC, "array") & !is(listB[["metric"]]$FDC, "matrix")) listB[["metric"]]$FDC <- matrix(listB[["metric"]]$FDC)
-    if(!is(listA[["metric"]]$probTP, "array") & !is(listA[["metric"]]$probTP, "matrix")) listA[["metric"]]$probTP <- matrix(listA[["metric"]]$probTP)
-    if(!is(listB[["metric"]]$probTP, "array") & !is(listB[["metric"]]$probTP, "matrix")) listB[["metric"]]$probTP <- matrix(listB[["metric"]]$probTP)
-    if(!is(listA[["delta"]], "list")) listA[["delta"]] <- list(listA[["delta"]])
+    if(!methods::is(listA[["power"]], "array") & !methods::is(listA[["power"]], "matrix")) listA[["power"]] <- matrix(listA[["power"]])
+    if(!methods::is(listB[["power"]], "array") & !methods::is(listB[["power"]], "matrix")) listB[["power"]] <- matrix(listB[["power"]])
+    if(!methods::is(listA[["metric"]]$marTypeI, "array") & !methods::is(listA[["metric"]]$marTypeI, "matrix")) listA[["metric"]]$marTypeI <- matrix(listA[["metric"]]$marTypeI)
+    if(!methods::is(listB[["metric"]]$marTypeI, "array") & !methods::is(listB[["metric"]]$marTypeI, "matrix")) listB[["metric"]]$marTypeI <- matrix(listB[["metric"]]$marTypeI)
+    if(!methods::is(listA[["metric"]]$classicalPower, "array") & !methods::is(listA[["metric"]]$classicalPower, "matrix")) listA[["metric"]]$classicalPower <- matrix(listA[["metric"]]$classicalPower)
+    if(!methods::is(listB[["metric"]]$classicalPower, "array") & !methods::is(listB[["metric"]]$classicalPower, "matrix")) listB[["metric"]]$classicalPower <- matrix(listB[["metric"]]$classicalPower)
+    if(!methods::is(listA[["metric"]]$FDR, "array") & !methods::is(listA[["metric"]]$FDR, "matrix")) listA[["metric"]]$FDR <- matrix(listA[["metric"]]$FDR)
+    if(!methods::is(listB[["metric"]]$FDR, "array") & !methods::is(listB[["metric"]]$FDR, "matrix")) listB[["metric"]]$FDR <- matrix(listB[["metric"]]$FDR)
+    if(!methods::is(listA[["metric"]]$FDC, "array") & !methods::is(listA[["metric"]]$FDC, "matrix")) listA[["metric"]]$FDC <- matrix(listA[["metric"]]$FDC)
+    if(!methods::is(listB[["metric"]]$FDC, "array") & !methods::is(listB[["metric"]]$FDC, "matrix")) listB[["metric"]]$FDC <- matrix(listB[["metric"]]$FDC)
+    if(!methods::is(listA[["metric"]]$probTP, "array") & !methods::is(listA[["metric"]]$probTP, "matrix")) listA[["metric"]]$probTP <- matrix(listA[["metric"]]$probTP)
+    if(!methods::is(listB[["metric"]]$probTP, "array") & !methods::is(listB[["metric"]]$probTP, "matrix")) listB[["metric"]]$probTP <- matrix(listB[["metric"]]$probTP)
+    if(!methods::is(listA[["delta"]], "list")) listA[["delta"]] <- list(listA[["delta"]])
     returnList <- list()
     returnList[["power"]] <- abind::abind(listA[["power"]], listB[["power"]], along = 3)
     returnList[["delta"]] <- listA[["delta"]]
@@ -174,8 +174,8 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
   startTime = Sys.time()
   cat(paste("[",startTime,"] ", "Running simulation\n", sep = ""))
   iterations <- length(totSampleSizes) * length(tau)
-  pb <- txtProgressBar(max = iterations, style = 3)
-  progress <- function(n) setTxtProgressBar(pb, n)
+  pb <- utils::txtProgressBar(max = iterations, style = 3)
+  progress <- function(n) utils::setTxtProgressBar(pb, n)
   opts <- list(progress = progress)
   multiThreadOut <- foreach(d = seq_along(tau), 
                             .combine = combine_tau,
@@ -183,7 +183,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
                             .export = c("getAlphBet", "getMeanVar", "beta2Mvalue", "limma", "ttestSlow", "ttestFast", "Wilcox", "CPGassoc")) %:%
     foreach(Ntot = totSampleSizes, .combine = combine_totSampleSizes, .options.snow = opts) %dopar% { 
       
-      setTxtProgressBar(pb, (d-1)*length(totSampleSizes) + which(Ntot==totSampleSizes))
+      utils::setTxtProgressBar(pb, (d-1)*length(totSampleSizes) + which(Ntot==totSampleSizes))
       
       Ncnt <- round(Ntot * NcntPer)
       Ntx <- Ntot - Ncnt
@@ -229,8 +229,8 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
         ## simulate baseline beta values
         g1Beta <- NULL
         g2Beta <- NULL
-        g1Beta <- matrix(rbeta(J*Ncnt, rep(alpha_unchanged, each = Ncnt), rep(beta_unchanged, each = Ncnt)), ncol = Ncnt, byrow = TRUE) 
-        g2Beta <- matrix(rbeta(J*Ntx, rep(alpha_changed, each = Ntx), rep(beta_changed, each = Ntx)), ncol = Ntx, byrow = TRUE) 
+        g1Beta <- matrix(stats::rbeta(J*Ncnt, rep(alpha_unchanged, each = Ncnt), rep(beta_unchanged, each = Ncnt)), ncol = Ncnt, byrow = TRUE) 
+        g2Beta <- matrix(stats::rbeta(J*Ntx, rep(alpha_changed, each = Ntx), rep(beta_changed, each = Ntx)), ncol = Ntx, byrow = TRUE) 
         g1Beta[g1Beta == 1] <- max(g1Beta[g1Beta != 1]) # replacing 0/1 by min/max
         g2Beta[g2Beta == 1] <- max(g2Beta[g2Beta != 1])
         g1Beta[g1Beta == 0] <- min(g1Beta[g1Beta != 0])
