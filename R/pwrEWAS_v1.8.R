@@ -84,6 +84,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
   
   #load data
   methPara <- pwrEWAS.data:::loadDataset(tissueType)
+  # methPara <-  ExperimentHub::ExperimentHub()[["EH3078"]]
   CpGonArray <- length(methPara$mu)
   
   output <- NULL
