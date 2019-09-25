@@ -5,13 +5,13 @@
 \title{pwrEWAS - A computationally efficient tool for compre-hensive power estimation in EWAS}
 \usage{
 pwrEWAS(minTotSampleSize, maxTotSampleSize, SampleSizeSteps, NcntPer,
-  targetDelta = NULL, deltaSD = NULL, J = 1e+05, targetDmCpGs,
-  tissueType = c("Adult (PBMC)", "Saliva", "Sperm", "Lymphoma",
-  "Placenta", "Liver", "Colon", "Blood adult", "Blood 5 year olds",
-  "Blood newborns", "Cord-blood (whole blood)", "Cord-blood (PBMC)"),
-  detectionLimit = 0.01, DMmethod = c("limma", "t-test (unequal var)",
-  "t-test (equal var)", "Wilcox rank sum", "CPGassoc"),
-  FDRcritVal = 0.05, core = 1, sims = 50)
+    targetDelta = NULL, deltaSD = NULL, J = 1e+05, targetDmCpGs,
+    tissueType = c("Adult (PBMC)", "Saliva", "Sperm", "Lymphoma",
+    "Placenta", "Liver", "Colon", "Blood adult", "Blood 5 year olds",
+    "Blood newborns", "Cord-blood (whole blood)", "Cord-blood (PBMC)"),
+    detectionLimit = 0.01, DMmethod = c("limma", "t-test (unequal var)",
+    "t-test (equal var)", "Wilcox rank sum", "CPGassoc"),
+    FDRcritVal = 0.05, core = 1, sims = 50)
 }
 \arguments{
 \item{minTotSampleSize}{Minimum total sample size.}
@@ -50,32 +50,32 @@ pwrEWAS is a computationally efficient tool to estimate power in EWAS as a funct
 }
 \examples{
 outDelta = pwrEWAS(minTotSampleSize = 10,
-                   maxTotSampleSize = 20,
-                   SampleSizeSteps = 10,
-                   NcntPer = 0.5,
-                   targetDelta = c(0.2, 0.5),
-                   J = 1000,
-                   targetDmCpGs = 10,
-                   tissueType = "Adult (PBMC)",
-                   detectionLimit = 0.01,
-                   DMmethod = "limma",
-                   FDRcritVal = 0.05,
-                   core = 2,
-                   sims = 30)
-                   
+    maxTotSampleSize = 20,
+    SampleSizeSteps = 10,
+    NcntPer = 0.5,
+    targetDelta = c(0.2, 0.5),
+    J = 1000,
+    targetDmCpGs = 10,
+    tissueType = "Adult (PBMC)",
+    detectionLimit = 0.01,
+    DMmethod = "limma",
+    FDRcritVal = 0.05,
+    core = 2,
+    sims = 30)
+    
 outSD = pwrEWAS(minTotSampleSize = 10,
-                   maxTotSampleSize = 20,
-                   SampleSizeSteps = 10,
-                   NcntPer = 0.5,
-                   deltaSD = c(0.02, 0.03),
-                   J = 1000,
-                   targetDmCpGs = 10,
-                   tissueType = "Adult (PBMC)",
-                   detectionLimit = 0.01,
-                   DMmethod = "limma",
-                   FDRcritVal = 0.05,
-                   core = 2,
-                   sims = 30)
+    maxTotSampleSize = 20,
+    SampleSizeSteps = 10,
+    NcntPer = 0.5,
+    deltaSD = c(0.02, 0.03),
+    J = 1000,
+    targetDmCpGs = 10,
+    tissueType = "Adult (PBMC)",
+    detectionLimit = 0.01,
+    DMmethod = "limma",
+    FDRcritVal = 0.05,
+    core = 2,
+    sims = 30)
 }
 \keyword{DNAm}
 \keyword{microarray}
