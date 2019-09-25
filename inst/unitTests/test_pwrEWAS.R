@@ -15,7 +15,3 @@ test_pwrEWAS <- function(){
                        0.6711375, 
                        tolerance = 0.02)
 }
-
-
-
-
