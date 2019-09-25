@@ -168,9 +168,9 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
     opts <- list(progress = progress)
     Ntot <- NULL
     multiThreadOut <- foreach(d = seq_along(tau), 
-                            .combine = combine_tau,
-                            .packages=c("truncnorm", "limma", "CpGassoc", "genefilter"),
-                            .export = c("getAlphBet", "getMeanVar", "beta2Mvalue", "limma", "ttestSlow", "ttestFast", "Wilcox", "CPGassoc")) %:%
+        .combine = combine_tau,
+        .packages=c("truncnorm", "limma", "CpGassoc", "genefilter"),
+        .export = c("getAlphBet", "getMeanVar", "beta2Mvalue", "limma", "ttestSlow", "ttestFast", "Wilcox", "CPGassoc")) %:%
         foreach(Ntot = totSampleSizes, .combine = combine_totSampleSizes, .options.snow = opts) %dopar% { 
             
             utils::setTxtProgressBar(pb, (d-1)*length(totSampleSizes) + which(Ntot==totSampleSizes))
