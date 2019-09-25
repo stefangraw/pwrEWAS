@@ -52,30 +52,30 @@
 #'                    core = 2,
 #'                    sims = 30)
 pwrEWAS <- function(minTotSampleSize, # min total sample size
-                    maxTotSampleSize, # max total sample size
-                    SampleSizeSteps, # steps for increasing total sample size
-                    NcntPer, # percentage of control sample
-                    targetDelta = NULL, # vector of 99 percentile of the target max DM
-                    deltaSD = NULL, # vector of sd(delta)
-                    J = 100000, # number of simulated CpGs
-                    targetDmCpGs, # target number for truely differentially methylated CpG
-                    tissueType = c("Adult (PBMC)",
-                                   "Saliva", 
-                                   "Sperm", 
-                                   "Lymphoma",
-                                   "Placenta",
-                                   "Liver",
-                                   "Colon",
-                                   "Blood adult",
-                                   "Blood 5 year olds",
-                                   "Blood newborns",
-                                   "Cord-blood (whole blood)",
-                                   "Cord-blood (PBMC)"), # tissue type that is used as reference to sample from
-                    detectionLimit = 0.01, # lower bound for differential methylated CpG's to be considered TRULY differential methylated
-                    DMmethod = c("limma", "t-test (unequal var)", "t-test (equal var)", "Wilcox rank sum", "CPGassoc"), # method to detect differential methylation
-                    FDRcritVal = 0.05,
-                    core = 1, # number of cores to multi thread
-                    sims = 50
+    maxTotSampleSize, # max total sample size
+    SampleSizeSteps, # steps for increasing total sample size
+    NcntPer, # percentage of control sample
+    targetDelta = NULL, # vector of 99 percentile of the target max DM
+    deltaSD = NULL, # vector of sd(delta)
+    J = 100000, # number of simulated CpGs
+    targetDmCpGs, # target number for truely differentially methylated CpG
+    tissueType = c("Adult (PBMC)",
+        "Saliva", 
+        "Sperm", 
+        "Lymphoma",
+        "Placenta",
+        "Liver",
+        "Colon",
+        "Blood adult",
+        "Blood 5 year olds",
+        "Blood newborns",
+        "Cord-blood (whole blood)",
+        "Cord-blood (PBMC)"), # tissue type that is used as reference to sample from
+    detectionLimit = 0.01, # lower bound for differential methylated CpG's to be considered TRULY differential methylated
+    DMmethod = c("limma", "t-test (unequal var)", "t-test (equal var)", "Wilcox rank sum", "CPGassoc"), # method to detect differential methylation
+    FDRcritVal = 0.05,
+    core = 1, # number of cores to multi thread
+    sims = 50
 ){
     tissueType <- match.arg(tissueType)
     DMmethod <- match.arg(DMmethod)
@@ -168,9 +168,9 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
     opts <- list(progress = progress)
     Ntot <- NULL
     multiThreadOut <- foreach(d = seq_along(tau), 
-                              .combine = combine_tau,
-                              .packages=c("truncnorm", "limma", "CpGassoc", "genefilter"),
-                              .export = c("getAlphBet", "getMeanVar", "beta2Mvalue", "limma", "ttestSlow", "ttestFast", "Wilcox", "CPGassoc")) %:%
+                            .combine = combine_tau,
+                            .packages=c("truncnorm", "limma", "CpGassoc", "genefilter"),
+                            .export = c("getAlphBet", "getMeanVar", "beta2Mvalue", "limma", "ttestSlow", "ttestFast", "Wilcox", "CPGassoc")) %:%
         foreach(Ntot = totSampleSizes, .combine = combine_totSampleSizes, .options.snow = opts) %dopar% { 
             
             utils::setTxtProgressBar(pb, (d-1)*length(totSampleSizes) + which(Ntot==totSampleSizes))
@@ -197,8 +197,8 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
                 ## Change Mu for "changedCpgsIdx"'s CpG's
                 # drawing delta from truncated normal
                 delta <- truncnorm::rtruncnorm(1, mean = 0, sd = as.numeric(tau[d]), 
-                                               a=0.5 - methPara$mu[changedCpgsIdx] - sqrt(0.25-methPara$var[changedCpgsIdx]), 
-                                               b=0.5 - methPara$mu[changedCpgsIdx] + sqrt(0.25-methPara$var[changedCpgsIdx]))
+                    a=0.5 - methPara$mu[changedCpgsIdx] - sqrt(0.25-methPara$var[changedCpgsIdx]), 
+                    b=0.5 - methPara$mu[changedCpgsIdx] + sqrt(0.25-methPara$var[changedCpgsIdx]))
                 deltaSim <- c(deltaSim, delta)  # multi core
                 meaningfulDM <- (abs(delta) >= detectionLimit)
                 meaningfulDMName <- changedCpgsIdxName[meaningfulDM]
