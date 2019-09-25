@@ -15,7 +15,7 @@ pwrEWAS_shiny provides a user-friendly point-and-click interface for pwrEWAS
 \examples{
 
 if(interactive()) {
-  pwrEWAS_shiny()
+    pwrEWAS_shiny()
 }
 }
 \keyword{DNAm}

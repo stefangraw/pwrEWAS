@@ -5,18 +5,18 @@ date: "`r doc_date()`"
 package: "`r pkg_ver('pwrEWAS')`"
 #bibliography: minfi.bib
 abstract: >
-  pwrEWAS is a user-friendly tool to estimate power in EWAS as a function of sample and effect size 
-       for two-group comparisons of DNAm (e.g., case vs control, exposed vs non-exposed, etc.). Detailed description 
-       of in-/outputs, instructions and an example, as well as interpretations of the example results are provided in 
-       the following vignette.
+    pwrEWAS is a user-friendly tool to estimate power in EWAS as a function of sample and effect size 
+    for two-group comparisons of DNAm (e.g., case vs control, exposed vs non-exposed, etc.). Detailed description 
+    of in-/outputs, instructions and an example, as well as interpretations of the example results are provided in 
+    the following vignette.
 vignette: >
-  %\VignetteIndexEntry{pwrEWAS User's Guide}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+    %\VignetteIndexEntry{pwrEWAS User's Guide}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
 output: 
-  BiocStyle::pdf_document:
-    keep_tex: true
-    number_sections: false
+    BiocStyle::pdf_document:
+        keep_tex: true
+        number_sections: false
 ---
 
 # Introduction
@@ -45,33 +45,33 @@ To execute the main pwrEWAS function the following to codes can be used. pwrEWAS
 ```{r usage, warning=FALSE, message=FALSE, eval=TRUE, results="hide"}
 # providing the targeted maximal difference in DNAm
 results_targetDelta = pwrEWAS(minTotSampleSize = 10,
-                    maxTotSampleSize = 50,
-                    SampleSizeSteps = 10,
-                    NcntPer = 0.5,
-                    targetDelta = c(0.2, 0.5),
-                    J = 100,
-                    targetDmCpGs = 10,
-                    tissueType = "Adult (PBMC)",
-                    detectionLimit = 0.01,
-                    DMmethod = "limma",
-                    FDRcritVal = 0.05,
-                    core = 4,
-                    sims = 50)
+    maxTotSampleSize = 50,
+    SampleSizeSteps = 10,
+    NcntPer = 0.5,
+    targetDelta = c(0.2, 0.5),
+    J = 100,
+    targetDmCpGs = 10,
+    tissueType = "Adult (PBMC)",
+    detectionLimit = 0.01,
+    DMmethod = "limma",
+    FDRcritVal = 0.05,
+    core = 4,
+    sims = 50)
 
 # providing the targeted maximal difference in DNAm
 results_deltaSD = pwrEWAS(minTotSampleSize = 10,
-                    maxTotSampleSize = 50,
-                    SampleSizeSteps = 10,
-                    NcntPer = 0.5,
-                    deltaSD = c(0.02, 0.05),
-                    J = 100,
-                    targetDmCpGs = 10,
-                    tissueType = "Adult (PBMC)",
-                    detectionLimit = 0.01,
-                    DMmethod = "limma",
-                    FDRcritVal = 0.05,
-                    core = 4,
-                    sims = 50)
+    maxTotSampleSize = 50,
+    SampleSizeSteps = 10,
+    NcntPer = 0.5,
+    deltaSD = c(0.02, 0.05),
+    J = 100,
+    targetDmCpGs = 10,
+    tissueType = "Adult (PBMC)",
+    detectionLimit = 0.01,
+    DMmethod = "limma",
+    FDRcritVal = 0.05,
+    core = 4,
+    sims = 50)
 
 ```
 
@@ -123,32 +123,32 @@ Running pwrEWAS by providing target maximal difference in methylation or by prov
 library(pwrEWAS)
 set.seed(1234)
 results_targetDelta = pwrEWAS(minTotSampleSize = 20,
-                    maxTotSampleSize = 260, 
-                    SampleSizeSteps = 40,
-                    NcntPer = 0.5,
-                    targetDelta = c(0.02, 0.10, 0.15, 0.20),
-                    J = 100000, 
-                    targetDmCpGs = 2500, 
-                    tissueType = "Blood adult",
-                    detectionLimit = 0.01,
-                    DMmethod = "limma",
-                    FDRcritVal = 0.05,
-                    core = 4,
-                    sims = 50)
+    maxTotSampleSize = 260, 
+    SampleSizeSteps = 40,
+    NcntPer = 0.5,
+    targetDelta = c(0.02, 0.10, 0.15, 0.20),
+    J = 100000, 
+    targetDmCpGs = 2500, 
+    tissueType = "Blood adult",
+    detectionLimit = 0.01,
+    DMmethod = "limma",
+    FDRcritVal = 0.05,
+    core = 4,
+    sims = 50)
 
 results_deltaSD = pwrEWAS(minTotSampleSize = 20,
-                    maxTotSampleSize = 260, 
-                    SampleSizeSteps = 40,
-                    NcntPer = 0.5,
-                    deltaSD = c(0.00390625, 0.02734375, 0.0390625, 0.052734375),
-                    J = 100000, 
-                    targetDmCpGs = 2500, 
-                    tissueType = "Blood adult",
-                    detectionLimit = 0.01,
-                    DMmethod = "limma",
-                    FDRcritVal = 0.05,
-                    core = 4,
-                    sims = 50)
+    maxTotSampleSize = 260, 
+    SampleSizeSteps = 40,
+    NcntPer = 0.5,
+    deltaSD = c(0.00390625, 0.02734375, 0.0390625, 0.052734375),
+    J = 100000, 
+    targetDmCpGs = 2500, 
+    tissueType = "Blood adult",
+    detectionLimit = 0.01,
+    DMmethod = "limma",
+    FDRcritVal = 0.05,
+    core = 4,
+    sims = 50)
 
 ```
 

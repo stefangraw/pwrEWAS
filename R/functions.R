@@ -21,7 +21,10 @@ beta2Mvalue <- function(beta){ # beta to m-value
 # t-test uses UNequal variance
 ttestSlow <- function(g1Beta,g2Beta,rCnt,rTx,paired){
     mvals <- cbind(beta2Mvalue(g1Beta), beta2Mvalue(g2Beta))
-    ttest <- apply(mvals,1,  function (x) stats::t.test(x[seq_len(rCnt)], x[(rCnt+1):(rCnt+rTx)], paired = FALSE, var.equal = TRUE))
+    ttest <- apply(mvals,1,  function (x) 
+        stats::t.test(x[seq_len(rCnt)], x[(rCnt+1):(rCnt+rTx)], 
+            paired = FALSE, 
+            var.equal = TRUE))
     temp <- NULL
     temp$pval <- unlist(lapply(ttest, function(x) x$p.value))
     temp$fdr <- stats::p.adjust(temp$pval, method = "fdr")
@@ -32,7 +35,9 @@ ttestSlow <- function(g1Beta,g2Beta,rCnt,rTx,paired){
 # t-test uses equal variance
 ttestFast <- function(g1Beta,g2Beta,rCnt,rTx){
     mvals <- cbind(beta2Mvalue(g1Beta), beta2Mvalue(g2Beta))
-    ttest <- genefilter::rowttests(mvals, fac = factor(c(rep("g1",rCnt),rep("g2",rTx))), tstatOnly = FALSE)  # faster: tstatOnly = T
+    ttest <- genefilter::rowttests(mvals, 
+        fac = factor(c(rep("g1",rCnt),rep("g2",rTx))), 
+        tstatOnly = FALSE)  # faster: tstatOnly = T
     temp <- NULL
     temp$pval <- ttest$p.value
     temp$fdr <- stats::p.adjust(temp$pval, method = "fdr")
@@ -43,7 +48,9 @@ ttestFast <- function(g1Beta,g2Beta,rCnt,rTx){
 # Wilcox rank sum test
 Wilcox <- function(g1Beta, g2Beta, rCnt,rTx){
     mvals <- cbind(beta2Mvalue(g1Beta), beta2Mvalue(g2Beta))
-    WRS <- apply(mvals,1,  function (x) stats::wilcox.test(x[seq_len(rCnt)] - x[(rCnt+1):(rCnt+rTx)], correct=TRUE))
+    WRS <- apply(mvals,1, 
+        function (x) stats::wilcox.test(x[seq_len(rCnt)] - 
+                x[(rCnt+1):(rCnt+rTx)], correct=TRUE))
     temp <- NULL
     temp$pval <- unlist(lapply(WRS, function(x) x$p.value))
     temp$fdr <- stats::p.adjust(temp$pval, method = "fdr")
@@ -63,7 +70,8 @@ limma <- function(g1Beta, g2Beta, rCnt,rTx){
 
 # CPGassoc
 CPGassoc <- function(g1Beta, g2Beta, rCnt,rTx){
-    assoc <- CpGassoc::cpg.assoc(cbind(g1Beta, g2Beta), c(rep("g1",rCnt),rep("g2",rTx)))
+    assoc <- CpGassoc::cpg.assoc(cbind(g1Beta, g2Beta), 
+        c(rep("g1",rCnt),rep("g2",rTx)))
     temp <- NULL
     temp$pval <- assoc$results$P.value
     temp$fdr <- assoc$results$FDR
@@ -71,7 +79,8 @@ CPGassoc <- function(g1Beta, g2Beta, rCnt,rTx){
 }
 
 
-getTau <- function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGonArray){
+getTau <- function(targetDmCpGs, targetDelta, methPara, 
+    detectionLimit, J, CpGonArray){
     out <- NULL
     tau <- 1
     tauSteps <- 1
@@ -84,10 +93,13 @@ getTau <- function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGon
         percentile <- NULL
         for(i in seq_len(100)){
             # simulate deltas for J CpG's (number of simulated CpG's later)
-            cpgIdx4Tau <- sample(x = seq_len(CpGonArray), size = J, replace = TRUE) # pick J random CpG's to be changed in mean meth
+            cpgIdx4Tau <- sample(x = seq_len(CpGonArray), 
+                size = J, replace = TRUE) # pick J random CpG's to be changed in mean meth
             delta <- truncnorm::rtruncnorm(1, mean = 0, sd = tau, 
-                a=0.5 - methPara$mu[cpgIdx4Tau] - sqrt(0.25-methPara$var[cpgIdx4Tau]), 
-                b=0.5 - methPara$mu[cpgIdx4Tau] + sqrt(0.25-methPara$var[cpgIdx4Tau]))
+                a=0.5 - methPara$mu[cpgIdx4Tau] - 
+                    sqrt(0.25-methPara$var[cpgIdx4Tau]), 
+                b=0.5 - methPara$mu[cpgIdx4Tau] + 
+                    sqrt(0.25-methPara$var[cpgIdx4Tau]))
             # 99.999% percentile 
             percentile[i] <- stats::quantile(abs(delta),0.9999)
         }

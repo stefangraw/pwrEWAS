@@ -12,7 +12,7 @@
 #' @examples
 #' 
 #' if(interactive()) {
-#'   pwrEWAS_shiny()
+#'     pwrEWAS_shiny()
 #' }
 
 
