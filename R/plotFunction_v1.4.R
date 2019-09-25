@@ -74,22 +74,22 @@ pwrEWAS_powerPlot <- function(data, sd = FALSE){
         }
         
         dftemp[[j]] <- data.frame(x = sampleSizes, y = colMeans(dataSlice) , 
-                                  scatter = sampleSizes + scatter[j],
-                                  L = L, U = U, deltas = rep(as.character(deltas[j]), length(sampleSizes)))
+            scatter = sampleSizes + scatter[j],
+            L = L, U = U, deltas = rep(as.character(deltas[j]), length(sampleSizes)))
         
         p <- p +
             ggplot2::geom_errorbar(data = dftemp[[j]], ggplot2::aes(x = scatter, ymax = U, ymin = L, colour=deltas),
-                                   width=ifelse(length(sampleSizes)>1,diff(range(sampleSizes))/(length(sampleSizes)*4),0.9), linetype=1, size=1) +
+                width=ifelse(length(sampleSizes)>1,diff(range(sampleSizes))/(length(sampleSizes)*4),0.9), linetype=1, size=1) +
             ggplot2::geom_line(data = dftemp[[j]], ggplot2::aes(x = x, y = y, colour=deltas), size=1.2) +
             ggplot2::geom_point(data = dftemp[[j]], ggplot2::aes(x = x, y = y), size = 1) +
             ggplot2::scale_x_continuous(breaks = sampleSizes) +
             ggplot2::scale_y_continuous(minor_breaks = seq(0 , 1, 0.1), breaks = seq(0, 1, 0.2), limits = c(0,1)) +
             ggplot2::theme(axis.text=ggplot2::element_text(size=18),
-                           axis.title=ggplot2::element_text(size=22)) +
+                axis.title=ggplot2::element_text(size=22)) +
             ggplot2::theme(axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = 20, r = 0, b = 0, l = 0)))+ 
             ggplot2::theme(axis.title.y = ggplot2::element_text(margin = ggplot2::margin(t = 0, r = 20, b = 0, l = 0)))+ 
             ggplot2::theme(legend.text=ggplot2::element_text(size=17),
-                           legend.title=ggplot2::element_text(size=20))
+                legend.title=ggplot2::element_text(size=20))
         
         if(sd){
             p <- p + ggplot2::scale_colour_discrete(name  = expression(paste("sd(",Delta[beta],")",sep = "")))

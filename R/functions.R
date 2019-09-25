@@ -86,8 +86,8 @@ getTau <- function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGon
             # simulate deltas for J CpG's (number of simulated CpG's later)
             cpgIdx4Tau <- sample(x = seq_len(CpGonArray), size = J, replace = TRUE) # pick J random CpG's to be changed in mean meth
             delta <- truncnorm::rtruncnorm(1, mean = 0, sd = tau, 
-                                           a=0.5 - methPara$mu[cpgIdx4Tau] - sqrt(0.25-methPara$var[cpgIdx4Tau]), 
-                                           b=0.5 - methPara$mu[cpgIdx4Tau] + sqrt(0.25-methPara$var[cpgIdx4Tau]))
+                a=0.5 - methPara$mu[cpgIdx4Tau] - sqrt(0.25-methPara$var[cpgIdx4Tau]), 
+                b=0.5 - methPara$mu[cpgIdx4Tau] + sqrt(0.25-methPara$var[cpgIdx4Tau]))
             # 99.999% percentile 
             percentile[i] <- stats::quantile(abs(delta),0.9999)
         }
@@ -120,8 +120,8 @@ getTau <- function(targetDmCpGs, targetDelta, methPara, detectionLimit, J, CpGon
 getK <- function(targetDmCpGs, methPara, detectionLimit, J, CpGonArray, tau){
     cpgIdx4Tau <- sample(x = seq_len(CpGonArray), size = J, replace = TRUE) # pick J random CpG's to be changed in mean meth
     delta <- truncnorm::rtruncnorm(1, mean = 0, sd = tau, 
-                                   a=0.5 - methPara$mu[cpgIdx4Tau] - sqrt(0.25-methPara$var[cpgIdx4Tau]), 
-                                   b=0.5 - methPara$mu[cpgIdx4Tau] + sqrt(0.25-methPara$var[cpgIdx4Tau]))
+        a=0.5 - methPara$mu[cpgIdx4Tau] - sqrt(0.25-methPara$var[cpgIdx4Tau]), 
+        b=0.5 - methPara$mu[cpgIdx4Tau] + sqrt(0.25-methPara$var[cpgIdx4Tau]))
     
     truelyDMperc <- mean(abs(delta) > detectionLimit)
     targetK <- round(1/truelyDMperc * targetDmCpGs)
