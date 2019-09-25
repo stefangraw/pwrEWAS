@@ -13,5 +13,5 @@ test_pwrEWAS <- function(){
                                core = 1, 
                                sims = 50)$meanPower,
                        0.6711375, 
-                       tolerance = 0.02)
+                       tolerance = 0.05)
 }
