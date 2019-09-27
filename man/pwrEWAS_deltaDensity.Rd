@@ -20,7 +20,7 @@ pwrEWAS_deltaDensity return a figure displaying densities of simulated differenc
 pwrEWAS_deltaDensity create a density plot of the simulated differences in mean methylation for different effect sizes
 }
 \examples{
-outDelta = pwrEWAS(minTotSampleSize = 10,
+outDelta <- pwrEWAS(minTotSampleSize = 10,
     maxTotSampleSize = 20,
     SampleSizeSteps = 10,
     NcntPer = 0.5,
@@ -34,7 +34,7 @@ outDelta = pwrEWAS(minTotSampleSize = 10,
     core = 2,
     sims = 30)
 pwrEWAS_deltaDensity(data = outDelta$deltaArray, detectionLimit = 0.01, sd = FALSE)
-outSD = pwrEWAS(minTotSampleSize = 10,
+outSD <- pwrEWAS(minTotSampleSize = 10,
     maxTotSampleSize = 20,
     SampleSizeSteps = 10,
     NcntPer = 0.5,

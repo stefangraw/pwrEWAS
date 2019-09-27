@@ -26,21 +26,21 @@ The R-Shiny web inter-face allows for easy input of user-defined parameters and 
 
 
 ## Installation
-pwrEWAS can be installed from guthub with the following R code:
+pwrEWAS can be installed with the following R code:
 ```{r install, warning=FALSE, message=FALSE, eval=FALSE}
 if (!requireNamespace("BiocManager"))
     install.packages("BiocManager")
 BiocManager::install("pwrEWAS")
 ```
 
-```{r library, warning=FALSE, message=FALSE, eval=TRUE}
-library("pwrEWAS")
-```
-
 
 \newpage
 # Usage
 To execute the main pwrEWAS function the following to codes can be used. pwrEWAS allows the user to specify the effect size in one of two ways, by either providing a target maximal difference in methylation ("targetDelta"), or by providing the standard deviation of the simulated differnces ("deltaSD"). Only one of both arguments can be provided. If "targetDelta" is specified, pwrEWAS will automatically identify a standard deviation to simulate differences in methylation, such that the 99.99th percentile of the absolute value of simulated differences falls within a range around the targeted maximal difference in DNAm (see paper for additional details). If "deltaSD" is specified, pwrEWAS will simulate differences in methylation using the provided standard deviation (additional information provided in paper).
+
+```{r library, warning=FALSE, message=FALSE, eval=TRUE}
+library("pwrEWAS")
+```
 
 ```{r usage, warning=FALSE, message=FALSE, eval=TRUE, results="hide"}
 # providing the targeted maximal difference in DNAm
@@ -258,6 +258,4 @@ To detect differences up to 10%, 15% and 20% in CpG-specific methylation across 
 ```{r sessionInfo, results='asis', echo=TRUE}
 toLatex(sessionInfo())
 ```
-
-# References
 

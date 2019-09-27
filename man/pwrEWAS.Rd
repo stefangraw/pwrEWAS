@@ -2,7 +2,7 @@
 % Please edit documentation in R/pwrEWAS_v1.8.R
 \name{pwrEWAS}
 \alias{pwrEWAS}
-\title{pwrEWAS - A computationally efficient tool for compre-hensive power estimation in EWAS}
+\title{pwrEWAS - A computationally efficient tool for comprehensive power estimation in EWAS}
 \usage{
 pwrEWAS(minTotSampleSize, maxTotSampleSize, SampleSizeSteps, NcntPer,
     targetDelta = NULL, deltaSD = NULL, J = 1e+05, targetDmCpGs,
@@ -46,10 +46,10 @@ pwrEWAS(minTotSampleSize, maxTotSampleSize, SampleSizeSteps, NcntPer,
 pwrEWAS will return an object with the following four attributes: meanPower, powerArray, deltaArray, and metric, where metric contains marTypeI, classicalPower, FDR, and FDC
 }
 \description{
-pwrEWAS is a computationally efficient tool to estimate power in EWAS as a function of sample and effect size for two-group comparisons of DNAm (e.g., case vs control, exposed vs non-exposed, etc.). Detailed description of in-/outputs, instructions and an example, as well as interpretations of the example results are provided in the following vignette: https://github.com/stefangraw/pwrEWAS/blob/master/vignettes/vignette.pdf
+pwrEWAS is a computationally efficient tool to estimate power in EWAS as a function of sample and effect size for two-group comparisons of DNAm (e.g., case vs control, exposed vs non-exposed, etc.). Detailed description of in-/outputs, instructions and an example, as well as interpretations of the example results are provided in the vignette: vignette("pwrEWAS") 
 }
 \examples{
-outDelta = pwrEWAS(minTotSampleSize = 10,
+outDelta <- pwrEWAS(minTotSampleSize = 10,
     maxTotSampleSize = 20,
     SampleSizeSteps = 10,
     NcntPer = 0.5,
@@ -63,7 +63,7 @@ outDelta = pwrEWAS(minTotSampleSize = 10,
     core = 2,
     sims = 30)
     
-outSD = pwrEWAS(minTotSampleSize = 10,
+outSD <- pwrEWAS(minTotSampleSize = 10,
     maxTotSampleSize = 20,
     SampleSizeSteps = 10,
     NcntPer = 0.5,

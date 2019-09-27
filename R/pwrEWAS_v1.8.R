@@ -1,6 +1,6 @@
-#' @title pwrEWAS - A computationally efficient tool for compre-hensive power estimation in EWAS
+#' @title pwrEWAS - A computationally efficient tool for comprehensive power estimation in EWAS
 #'
-#' @description pwrEWAS is a computationally efficient tool to estimate power in EWAS as a function of sample and effect size for two-group comparisons of DNAm (e.g., case vs control, exposed vs non-exposed, etc.). Detailed description of in-/outputs, instructions and an example, as well as interpretations of the example results are provided in the following vignette: https://github.com/stefangraw/pwrEWAS/blob/master/vignettes/vignette.pdf
+#' @description pwrEWAS is a computationally efficient tool to estimate power in EWAS as a function of sample and effect size for two-group comparisons of DNAm (e.g., case vs control, exposed vs non-exposed, etc.). Detailed description of in-/outputs, instructions and an example, as well as interpretations of the example results are provided in the vignette: vignette("pwrEWAS")
 #' 
 #' @param minTotSampleSize Minimum total sample size.
 #' @param maxTotSampleSize Maximum total sample size.
@@ -24,7 +24,7 @@
 #' @export
 #' 
 #' @examples
-#' outDelta = pwrEWAS(minTotSampleSize = 10,
+#' outDelta <- pwrEWAS(minTotSampleSize = 10,
 #'     maxTotSampleSize = 20,
 #'     SampleSizeSteps = 10,
 #'     NcntPer = 0.5,
@@ -38,7 +38,7 @@
 #'     core = 2,
 #'     sims = 30)
 #'                    
-#' outSD = pwrEWAS(minTotSampleSize = 10,
+#' outSD <- pwrEWAS(minTotSampleSize = 10,
 #'     maxTotSampleSize = 20,
 #'     SampleSizeSteps = 10,
 #'     NcntPer = 0.5,
@@ -160,7 +160,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
     
     
     # main function
-    startTime = Sys.time()
+    startTime <- Sys.time()
     cat(paste("[",startTime,"] ", "Running simulation\n", sep = ""))
     iterations <- length(totSampleSizes) * length(tau)
     pb <- utils::txtProgressBar(max = iterations, style = 3)
@@ -169,7 +169,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
     Ntot <- NULL
     multiThreadOut <- foreach(d = seq_along(tau), 
         .combine = combine_tau,
-        .packages=c("truncnorm", "limma", "CpGassoc", "genefilter"),
+        .packages = c("truncnorm", "limma", "CpGassoc", "genefilter"),
         .export = c("getAlphBet", "getMeanVar", "beta2Mvalue", "limma", "ttestSlow", "ttestFast", "Wilcox", "CPGassoc")) %:%
         foreach(Ntot = totSampleSizes, .combine = combine_totSampleSizes, .options.snow = opts) %dopar% { 
             
@@ -228,31 +228,15 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
                 rownames(g1Beta) <- rownames(g2Beta) <- paste(seq_len(J),"_",names(alpha_unchanged),sep = "")
                 
                 # Tests 
-                ## t-test slow (unequal var)
-                if(DMmethod == "t-test (unequal var)") {
-                    DMtest <- ttestSlow(g1Beta,g2Beta,Ncnt,Ntx,paired=FALSE)
-                } else 
-                    
-                    ## t-test (equal var)
-                    if(DMmethod == "t-test (equal var)") {
-                        DMtest <- ttestFast(g1Beta,g2Beta,Ncnt,Ntx)
-                    } else
-                        
-                        ## CPG assoc
-                        if(DMmethod == "CPGassoc") {
-                            DMtest <- CPGassoc(g1Beta, g2Beta, Ncnt,Ntx)
-                        } else
-                            
-                            ## Wilcox rank sum test
-                            if(DMmethod == "Wilcox rank sum") {
-                                DMtest <- Wilcox(g1Beta, g2Beta, Ncnt,Ntx)
-                            } else 
-                                
-                                ## limma
-                                if(DMmethod == "limma") {
-                                    DMtest <- limma(g1Beta, g2Beta, Ncnt,Ntx)
-                                }
-                
+                DMtest <- switch(DMmethod,
+                    "t-test (unequal var)" = ttestSlow(g1Beta,g2Beta,Ncnt,Ntx,paired=FALSE), # t-test slow (unequal var)
+                    "t-test (equal var)" = ttestFast(g1Beta,g2Beta,Ncnt,Ntx), # t-test (equal var)
+                    "CPGassoc" = CPGassoc(g1Beta, g2Beta, Ncnt,Ntx), # CPG assoc
+                    "Wilcox rank sum" = Wilcox(g1Beta, g2Beta, Ncnt,Ntx), # Wilcox rank sum test
+                    "limma" = limma(g1Beta, g2Beta, Ncnt,Ntx), # limma
+                    stop("Test not found")
+                )
+
                 # table from paper
                 notDM  <- cpgIdxName[!(cpgIdxName %in% changedCpgsIdxName)]
                 DM_negligible <- changedCpgsIdxName[!(changedCpgsIdxName %in% meaningfulDMName)]
@@ -278,7 +262,7 @@ pwrEWAS <- function(minTotSampleSize, # min total sample size
                 
             } # end sim
             
-            outSim=list() 
+            outSim <- list() 
             outSim[["power"]] <- marPower # multi core
             outSim[["delta"]] <- deltaSim # multi core
             outSim[["metric"]]$marTypeI <- marTypeI

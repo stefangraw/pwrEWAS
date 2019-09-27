@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotFunction_v1.4.R
 \name{pwrEWAS_powerPlot}
 \alias{pwrEWAS_powerPlot}
-\title{Plot funtion to create a power plot}
+\title{Plot function to create a power plot}
 \usage{
 pwrEWAS_powerPlot(data, sd = FALSE)
 }
@@ -12,13 +12,13 @@ pwrEWAS_powerPlot(data, sd = FALSE)
 \item{sd}{FALSE if targetDelta was specified in pwrEWAS, and TRUE if deltaSD was specified in pwrEWAS.}
 }
 \value{
-pwrEWAS_powerPlot return a figure displaying power as a funtion sample size for different effect sizes
+pwrEWAS_powerPlot return a figure displaying power as a function sample size for different effect sizes
 }
 \description{
-pwrEWAS_powerPlot create a figure with power (with 95-percentile interval (2.5% & 97.5%)) as a funtion sample size for different effect sizes
+pwrEWAS_powerPlot create a figure with power (with 95-percentile interval (2.5% & 97.5%)) as a function sample size for different effect sizes
 }
 \examples{
-outDelta = pwrEWAS(minTotSampleSize = 10,
+outDelta <- pwrEWAS(minTotSampleSize = 10,
     maxTotSampleSize = 20,
     SampleSizeSteps = 10,
     NcntPer = 0.5,
@@ -32,7 +32,7 @@ outDelta = pwrEWAS(minTotSampleSize = 10,
     core = 2,
     sims = 30)
 pwrEWAS_powerPlot(data = outDelta$powerArray, sd = FALSE)
-outSD = pwrEWAS(minTotSampleSize = 10,
+outSD <- pwrEWAS(minTotSampleSize = 10,
     maxTotSampleSize = 20,
     SampleSizeSteps = 10,
     NcntPer = 0.5,

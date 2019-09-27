@@ -1,16 +1,16 @@
-#' @title Plot funtion to create a power plot
+#' @title Plot function to create a power plot
 #'
-#' @description pwrEWAS_powerPlot create a figure with power (with 95-percentile interval (2.5% & 97.5%)) as a funtion sample size for different effect sizes
+#' @description pwrEWAS_powerPlot create a figure with power (with 95-percentile interval (2.5% & 97.5%)) as a function sample size for different effect sizes
 #' 
 #' @param data "powerArray" attribute within the pwrEWAS object create by pwrEWAS.
 #' @param sd FALSE if targetDelta was specified in pwrEWAS, and TRUE if deltaSD was specified in pwrEWAS.
 #'  
-#' @return pwrEWAS_powerPlot return a figure displaying power as a funtion sample size for different effect sizes
+#' @return pwrEWAS_powerPlot return a figure displaying power as a function sample size for different effect sizes
 #' 
 #' @export
 #' 
 #' @examples
-#' outDelta = pwrEWAS(minTotSampleSize = 10,
+#' outDelta <- pwrEWAS(minTotSampleSize = 10,
 #'     maxTotSampleSize = 20,
 #'     SampleSizeSteps = 10,
 #'     NcntPer = 0.5,
@@ -24,7 +24,7 @@
 #'     core = 2,
 #'     sims = 30)
 #' pwrEWAS_powerPlot(data = outDelta$powerArray, sd = FALSE)
-#' outSD = pwrEWAS(minTotSampleSize = 10,
+#' outSD <- pwrEWAS(minTotSampleSize = 10,
 #'     maxTotSampleSize = 20,
 #'     SampleSizeSteps = 10,
 #'     NcntPer = 0.5,
@@ -136,7 +136,7 @@ gg_color_hue <- function(n) {
 #' @export
 #' 
 #' @examples
-#' outDelta = pwrEWAS(minTotSampleSize = 10,
+#' outDelta <- pwrEWAS(minTotSampleSize = 10,
 #'     maxTotSampleSize = 20,
 #'     SampleSizeSteps = 10,
 #'     NcntPer = 0.5,
@@ -150,7 +150,7 @@ gg_color_hue <- function(n) {
 #'     core = 2,
 #'     sims = 30)
 #' pwrEWAS_deltaDensity(data = outDelta$deltaArray, detectionLimit = 0.01, sd = FALSE)
-#' outSD = pwrEWAS(minTotSampleSize = 10,
+#' outSD <- pwrEWAS(minTotSampleSize = 10,
 #'     maxTotSampleSize = 20,
 #'     SampleSizeSteps = 10,
 #'     NcntPer = 0.5,
