@@ -44,7 +44,7 @@ library("pwrEWAS")
 
 ```{r usage, warning=FALSE, message=FALSE, eval=TRUE, results="hide"}
 # providing the targeted maximal difference in DNAm
-results_targetDelta = pwrEWAS(minTotSampleSize = 10,
+results_targetDelta <- pwrEWAS(minTotSampleSize = 10,
     maxTotSampleSize = 50,
     SampleSizeSteps = 10,
     NcntPer = 0.5,
@@ -59,7 +59,7 @@ results_targetDelta = pwrEWAS(minTotSampleSize = 10,
     sims = 50)
 
 # providing the targeted maximal difference in DNAm
-results_deltaSD = pwrEWAS(minTotSampleSize = 10,
+results_deltaSD <- pwrEWAS(minTotSampleSize = 10,
     maxTotSampleSize = 50,
     SampleSizeSteps = 10,
     NcntPer = 0.5,
@@ -122,7 +122,7 @@ Running pwrEWAS by providing target maximal difference in methylation or by prov
 ```{r example running pwrEWAS targetDelta, warning=FALSE, message=FALSE, eval=FALSE, results="hide"}
 library(pwrEWAS)
 set.seed(1234)
-results_targetDelta = pwrEWAS(minTotSampleSize = 20,
+results_targetDelta <- pwrEWAS(minTotSampleSize = 20,
     maxTotSampleSize = 260, 
     SampleSizeSteps = 40,
     NcntPer = 0.5,
@@ -136,7 +136,7 @@ results_targetDelta = pwrEWAS(minTotSampleSize = 20,
     core = 4,
     sims = 50)
 
-results_deltaSD = pwrEWAS(minTotSampleSize = 20,
+results_deltaSD <- pwrEWAS(minTotSampleSize = 20,
     maxTotSampleSize = 260, 
     SampleSizeSteps = 40,
     NcntPer = 0.5,
@@ -231,8 +231,8 @@ pwrEWAS_deltaDensity(results_targetDelta$deltaArray, detectionLimit = 0.01, sd =
 
 In the figure above, the densities are very compress, because the first effect size is clearly different from the other three. The following code will provide the figure after removing the first effect size:
 ```{r example density plot w/o 0.02, warning=FALSE, message=FALSE, eval=FALSE}
-temp = results_targetDelta$deltaArray
-temp[[1]] = NULL
+temp <- results_targetDelta$deltaArray
+temp[[1]] <- NULL
 pwrEWAS_deltaDensity(temp, detectionLimit = 0.01, sd = FALSE)
 ```
 
