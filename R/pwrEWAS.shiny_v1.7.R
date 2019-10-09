@@ -161,7 +161,7 @@ pwrEWAS_shiny <- function(){
             for two-group comparisons of DNAm (e.g., case vs control, exposed vs non-exposed, etc.). Detailed description 
             of in-/outputs, instructions and an example, as well as interpretations of the example results are provided in 
             the following vignette: "),
-        shiny::tags$a(href="https://github.com/stefangraw/pwrEWAS/blob/master/vignettes/vignette.pdf", "pwrEWAS vignette"),
+        shiny::tags$a(href="https://bioconductor.org/packages/devel/bioc/vignettes/pwrEWAS/inst/doc/pwrEWAS.pdf", "pwrEWAS vignette"),
         
         
         shiny::HTML("</br></br>Authors: Stefan Graw, Devin Koestler </br>"),
